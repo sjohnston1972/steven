@@ -1,0 +1,16 @@
+{
+  "name": "steven-cv-worker",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.5.0",
+    "vitest": "~2.1.0",
+    "wrangler": "^4.0.0"
+  }
+}

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steven Johnston - Technical Lead</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=13">
+</head>
+<body class="light">
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <div class="nav-logo">SJ</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#expertise">Expertise</a>
+                <a href="#career">Career</a>
+                <a href="#credentials">Credentials</a>
+                <a href="mailto:stevie.johnston@gmail.com" class="nav-cta">Get in Touch</a>
+            </div>
+            <button class="theme-switch" id="themeToggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+                <svg class="theme-icon theme-icon-moon" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <span class="theme-switch-track"><span class="theme-switch-thumb"></span></span>
+                <svg class="theme-icon theme-icon-sun" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V3a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1zm8.66-12a1 1 0 0 1-.366 1.366l-.866.5a1 1 0 1 1-1-1.732l.866-.5A1 1 0 0 1 20.66 6zM5.74 18a1 1 0 0 1-.366 1.366l-.866.5a1 1 0 1 1-1-1.732l.866-.5A1 1 0 0 1 5.74 18zm14.92 0a1 1 0 0 1 1.366.366l.5.866a1 1 0 1 1-1.732 1l-.5-.866A1 1 0 0 1 20.66 18zM3.34 6a1 1 0 0 1 1.366.366l.5.866a1 1 0 1 1-1.732 1l-.5-.866A1 1 0 0 1 3.34 6zM22 12a1 1 0 0 1-1 1h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zM4 12a1 1 0 0 1-1 1H2a1 1 0 1 1 0-2h1a1 1 0 0 1 1 1zm8-5a5 5 0 1 1 0 10A5 5 0 0 1 12 7z"/></svg>
+            </button>
+            <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="nav-mobile" id="navMobile">
+            <a href="#about">About</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#career">Career</a>
+            <a href="#credentials">Credentials</a>
+            <a href="mailto:stevie.johnston@gmail.com">Get in Touch</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <canvas class="hero-canvas" id="heroCanvas"></canvas>
+        <div class="hero-vignette"></div>
+        <div class="hero-inner">
+            <div class="hero-content">
+                <p class="hero-eyebrow">Technical Lead &nbsp;·&nbsp; Glasgow, Scotland</p>
+                <h1 class="hero-name">
+                    <span class="hero-name-solid">Steven</span>
+                    <span class="hero-name-outline">Johnston</span>
+                </h1>
+                <p class="hero-tagline">
+                    Leading the architecture and delivery of complex enterprise infrastructure, from first principles to production.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">CCNP</span>
+                        <span class="hero-stat-label">Routing &amp; Switching</span>
+                    </div>
+                    <div class="hero-stat-rule"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">CCNP</span>
+                        <span class="hero-stat-label">Collaboration</span>
+                    </div>
+                    <div class="hero-stat-rule"></div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">SC</span>
+                        <span class="hero-stat-label">Security Cleared</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a href="mailto:stevie.johnston@gmail.com" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        </svg>
+                        Get in Touch
+                    </a>
+                    <a href="https://www.linkedin.com/in/steven-johnston-474a5333/" target="_blank" rel="noopener" class="btn btn-ghost">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a href="Steven_Johnston_CV.pdf?v=8" download class="btn btn-ghost">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        Download CV
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll-hint" aria-hidden="true">
+            <span>Scroll</span>
+            <div class="hero-scroll-track"><div class="hero-scroll-bar"></div></div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section class="section" id="about">
+        <div class="section-inner">
+            <header class="section-header reveal">
+                <span class="section-num">01</span>
+                <h2 class="section-title">About</h2>
+            </header>
+            <div class="about-grid">
+                <div class="about-text-col reveal">
+                    <p class="about-lead">
+                        I lead the technical design and delivery of infrastructure projects for enterprise and public sector clients, owning the architecture, setting standards across concurrent programmes, and seeing complex multi-vendor deployments through to production. Day to day, that means designing multi-region cloud architectures, building AI agents that automate network operations, and leading a team of engineers.
+                    </p>
+                    <p class="about-body-text">
+                        I started out as a hands-on engineer, moved into solutions architecture, and now work as a technical lead, so I'm comfortable at every level, whether that's working through a routing problem with an engineer or talking strategy with senior stakeholders.
+                    </p>
+                    <p class="about-body-text">
+                        SC cleared and working at Lead Architect level, I cover networking, security, cloud, and AI-driven automation, and take programmes from initial concept through to production. My work spans global enterprise and public sector environments, including critical national infrastructure and major public sector organisations.
+                    </p>
+                    <p class="about-body-text">
+                        Over the past two years I've focused on bringing agentic AI into infrastructure operations, designing and deploying automation platforms that cut manual effort, speed up delivery, and give teams information they can actually act on. New technology is most useful when it's applied with the same rigour as everything else, and that's how I approach it.
+                    </p>
+                </div>
+                <div class="about-stats reveal">
+                    <div class="about-stat" data-skill="cloud">
+                        <span class="about-stat-value">Cloud</span>
+                        <ul class="about-stat-bullets">
+                            <li>Azure Virtual WAN</li>
+                            <li>ExpressRoute</li>
+                            <li>Hybrid Connectivity</li>
+                            <li>NVA Firewalls</li>
+                            <li>Azure Transit Hubs</li>
+                            <li>Multi-Region Design</li>
+                        </ul>
+                    </div>
+                    <div class="about-stat" data-skill="security">
+                        <span class="about-stat-value">Security</span>
+                        <ul class="about-stat-bullets">
+                            <li>ZTNA</li>
+                            <li>SASE</li>
+                            <li>Palo Alto</li>
+                            <li>Cisco</li>
+                            <li>Cisco ISE</li>
+                            <li>Fortinet</li>
+                        </ul>
+                    </div>
+                    <div class="about-stat" data-skill="ai">
+                        <span class="about-stat-value">AI</span>
+                        <ul class="about-stat-bullets">
+                            <li>Agentic Workflows</li>
+                            <li>LLM API's</li>
+                            <li>Network Automation</li>
+                            <li>AI Tooling</li>
+                            <li>AI Ops Platforms</li>
+                            <li>Incident Automation</li>
+                        </ul>
+                    </div>
+                    <div class="about-stat" data-skill="techlead">
+                        <span class="about-stat-value">Technical Lead</span>
+                        <ul class="about-stat-bullets">
+                            <li>Team of 7 Consultants</li>
+                            <li>Programme Delivery</li>
+                            <li>Solution Architecture</li>
+                            <li>Technical Standards</li>
+                            <li>Mentoring &amp; Development</li>
+                            <li>Resource Planning</li>
+                        </ul>
+                    </div>
+                    <div class="about-stat" data-skill="collaboration">
+                        <span class="about-stat-value">Collaboration</span>
+                        <ul class="about-stat-bullets">
+                            <li>Cisco CUCM &amp; Webex</li>
+                            <li>MS Teams Migrations</li>
+                            <li>SIP &amp; CUBE Integration</li>
+                            <li>Enterprise Voice</li>
+                            <li>Secure Video Conferencing</li>
+                            <li>Unified Communications</li>
+                        </ul>
+                    </div>
+                    <div class="about-stat" data-skill="datacentre">
+                        <span class="about-stat-value">Datacentre</span>
+                        <ul class="about-stat-bullets">
+                            <li>Cisco Nexus &amp; UCS</li>
+                            <li>VMware &amp; Nutanix</li>
+                            <li>DC Design &amp; Architecture</li>
+                            <li>Datacentre Builds</li>
+                            <li>Multi-DC Transformation</li>
+                            <li>Offshore Delivery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise -->
+    <section class="section section-alt" id="expertise">
+        <div class="section-inner">
+            <header class="section-header reveal">
+                <span class="section-num">02</span>
+                <h2 class="section-title">Expertise</h2>
+            </header>
+            <div class="skills-grid">
+
+                <div class="skill-card reveal" data-skill="networking">
+                    <div class="skill-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/>
+                            <line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3 class="skill-card-title">Infrastructure</h3>
+                    <ul class="skill-list">
+                        <li>Network Architecture &amp; Design</li>
+                        <li>HLD/LLD Documentation</li>
+                        <li>WAN and SD-WAN Design</li>
+                        <li>BGP &amp; OSPF Routing</li>
+                        <li>Campus LAN / WAN Design</li>
+                        <li>LAN Switching</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal" data-skill="security">
+                    <div class="skill-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="skill-card-title">Security</h3>
+                    <ul class="skill-list">
+                        <li>Cisco, Palo Alto &amp; Fortinet Firewalls</li>
+                        <li>Cisco ISE &amp; Zero Trust</li>
+                        <li>VPN &amp; Remote Access</li>
+                        <li>Umbrella &amp; DUO</li>
+                        <li>Cisco Secure Access / SASE</li>
+                        <li>Security Architecture</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal" data-skill="cloud">
+                    <div class="skill-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+                        </svg>
+                    </div>
+                    <h3 class="skill-card-title">Cloud &amp; Hybrid</h3>
+                    <ul class="skill-list">
+                        <li>Azure Networking/transit hub design</li>
+                        <li>Hybrid Cloud Connectivity</li>
+                        <li>ExpressRoute &amp; Private Connectivity</li>
+                        <li>Cisco, Palo Alto NVA Firewalls</li>
+                        <li>Cloud Security Architecture</li>
+                        <li>Azure Virtual WAN</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal" data-skill="collaboration">
+                    <div class="skill-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.63A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16z"/>
+                        </svg>
+                    </div>
+                    <h3 class="skill-card-title">Collaboration</h3>
+                    <ul class="skill-list">
+                        <li>Cisco Webex &amp; MS Teams</li>
+                        <li>SIP &amp; CUBE Integration</li>
+                        <li>Unified Communications</li>
+                        <li>Cisco CUCM</li>
+                        <li>Enterprise Voice Solutions</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal" data-skill="datacentre">
+                    <div class="skill-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="5" cy="12" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="19" cy="19" r="2"/>
+                            <path d="M7 12h10M17 5.5L7 11M17 18.5L7 13"/>
+                        </svg>
+                    </div>
+                    <h3 class="skill-card-title">Datacentre</h3>
+                    <ul class="skill-list">
+                        <li>Cisco UCS</li>
+                        <li>VMware</li>
+                        <li>Cisco Nexus</li>
+                        <li>DC Design &amp; Architecture</li>
+                        <li>Nutanix</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal" data-skill="ai">
+                    <div class="skill-card-icon" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+                        </svg>
+                    </div>
+                    <h3 class="skill-card-title">Automation &amp; Dev</h3>
+                    <ul class="skill-list">
+                        <li>Python/Terraform/Ansible</li>
+                        <li>Agentic Network Automation</li>
+                        <li>API's and Web Services</li>
+                        <li>AI Workflows &amp; Integration</li>
+                        <li>Docker &amp; Containerisation</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Career -->
+    <section class="section" id="career">
+        <div class="section-inner">
+            <header class="section-header reveal">
+                <span class="section-num">03</span>
+                <h2 class="section-title">Career</h2>
+            </header>
+            <div class="timeline">
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2024 - Present</div>
+                    <div class="timeline-spine">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Technical Lead</h3>
+                        <p class="timeline-company">Sword Group <span class="timeline-company-note">(formerly Ping Network Solutions)</span></p>
+                        <ul class="timeline-list">
+                            <li data-skills="security cloud networking">Designed and delivered a resilient, multi-region Cisco ISE, Palo Alto Firewall, Cisco SDWAN deployment in Azure, establishing zero-trust network access for critical national infrastructure client.</li>
+                            <li data-skills="ai cloud security">Architected a secure cloud based (Azure) AI platform to automate network operations workflows, integrating LLM-based tooling with enterprise infrastructure to reduce manual effort and accelerate incident response</li>
+                            <li data-skills="techlead">Manage and mentor a team of 7 consultants, owning resource planning, technical direction, and professional development across concurrent delivery programmes</li>
+                            <li data-skills="techlead networking">Define solution architecture and set technical standards across projects, ensuring consistency, quality, and alignment with client outcomes</li>
+                            <li data-skills="datacentre networking security">Led a multi-datacentre & offshore transformation programme incorporating SD-WAN, Cisco Nexus datacenter switching, and Palo Alto Networks edge security</li>
+                            <li data-skills="security networking">Delivered campus-wide firewall and LAN refresh programmes across multiple Scottish public sector clients including colleges, universities, and government bodies, driving security uplift and operational resilience</li>
+                            <li data-skills="ai techlead">Championed DevOps practices within the team, introducing CI/CD pipelines, infrastructure-as-code, and automated testing to accelerate delivery</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2019 - 2024</div>
+                    <div class="timeline-spine">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Consultant Engineer</h3>
+                        <p class="timeline-company">Ping Network Solutions</p>
+                        <ul class="timeline-list">
+                            <li data-skills="networking security collaboration">Designed and implemented end-to-end solutions spanning networking, security, and collaboration technologies</li>
+                            <li data-skills="networking">Led a multi-site migration from legacy BGP/IPsec VPN to a modern Cisco SD-WAN architecture</li>
+                            <li data-skills="cloud networking security">Designed and delivered Cisco SD-WAN with an active/active Palo Alto Networks transit hub in Azure, enabling resilient hybrid connectivity</li>
+                            <li data-skills="collaboration">Managed the migration of 2,000 users from Cisco CUCM to Microsoft Teams for a major Scottish university</li>
+                            <li data-skills="datacentre">Led a datacentre refresh introducing modern Cisco Nexus switching for a prestigious Glasgow school</li>
+                            <li data-skills="datacentre ai">Designed and built a bespoke hosted management and monitoring platform across dual datacentres for an energy sector client</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2015 - 2019</div>
+                    <div class="timeline-spine">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Principal Engineer</h3>
+                        <p class="timeline-company">Virgin Media Business</p>
+                        <ul class="timeline-list">
+                            <li data-skills="techlead networking">Provided technical leadership and consultation for large public sector accounts</li>
+                            <li data-skills="datacentre networking">Delivered a comprehensive LAN/WAN and datacentre redesign using Cisco Nexus 9K for a national justice sector organisation</li>
+                            <li data-skills="datacentre">Led a datacentre refresh incorporating Clustered Cisco UCS 5508 compute nodes for a secure public sector estate</li>
+                            <li data-skills="collaboration security">Designed and implemented a secure video conferencing system for a custodial environment, connecting inmates, solicitors, police, and court personnel</li>
+                            <li data-skills="networking security collaboration">Delivered multiple large infrastructure projects including LAN refreshes, firewall migrations, and SIP integrations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2007 - 2015</div>
+                    <div class="timeline-spine">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Senior Network Engineer</h3>
+                        <p class="timeline-company">Jabil</p>
+                        <ul class="timeline-list">
+                            <li data-skills="networking security collaboration">Designed and implemented network, security, and voice solutions for European manufacturing facilities</li>
+                            <li data-skills="networking collaboration">Led a European-wide deployment of a global LAN, WAN, and Cisco telephony refresh across 112 sites</li>
+                            <li data-skills="datacentre">Delivered two $3M datacentre builds in London and Budapest</li>
+                            <li data-skills="techlead networking">Served as technical lead for the acquisition integration of a competitor facility in the Netherlands</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-year">2003 - 2007</div>
+                    <div class="timeline-spine">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">Network Engineer</h3>
+                        <p class="timeline-company">Jabil</p>
+                        <ul class="timeline-list">
+                            <li data-skills="networking collaboration">Managed the installation and support of converged data and voice networks across the European region</li>
+                            <li data-skills="networking">Designed bespoke routing and traffic engineering solutions using BGP and OSPF</li>
+                            <li data-skills="collaboration networking">Delivered telephony and wireless solutions across multiple European sites</li>
+                            <li data-skills="security networking">Designed VPN solutions for third-party integrations and secure remote access</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Credentials -->
+    <section class="section section-alt" id="credentials">
+        <div class="section-inner">
+            <header class="section-header reveal">
+                <span class="section-num">04</span>
+                <h2 class="section-title">Credentials</h2>
+            </header>
+            <div class="creds-featured reveal">
+                <div class="cred-card">
+                    <div class="cred-badge">SC</div>
+                    <div class="cred-info">
+                        <h3 class="cred-title">SC Cleared</h3>
+                        <p class="cred-issuer">UK Government Security Clearance</p>
+                    </div>
+                </div>
+                <div class="cred-card">
+                    <div class="cred-badge">CCNP</div>
+                    <div class="cred-info">
+                        <h3 class="cred-title">CCNP Enterprise</h3>
+                        <p class="cred-issuer">Cisco Routing &amp; Switching</p>
+                        <p class="cred-valid">Valid through 2027</p>
+                    </div>
+                </div>
+                <div class="cred-card">
+                    <div class="cred-badge">CCNP</div>
+                    <div class="cred-info">
+                        <h3 class="cred-title">CCNP Collaboration</h3>
+                        <p class="cred-issuer">Cisco Unified Communications</p>
+                        <p class="cred-valid">Valid through 2027</p>
+                    </div>
+                </div>
+            </div>
+            <div class="creds-specialist reveal">
+                <p class="creds-specialist-label">Cisco Specialist Certifications &nbsp;<span>All valid through 2027</span></p>
+                <div class="cert-tags">
+                    <span class="cert-tag">Data Centre Operations</span>
+                    <span class="cert-tag">Collaboration Applications</span>
+                    <span class="cert-tag">Call Control &amp; Mobility</span>
+                    <span class="cert-tag">Collaboration Cloud &amp; Edge</span>
+                    <span class="cert-tag">Collaboration Core</span>
+                    <span class="cert-tag">Enterprise Advanced Infrastructure</span>
+                    <span class="cert-tag">Enterprise Core</span>
+                    <span class="cert-tag">CCNA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <span class="footer-logo">SJ</span>
+            <p class="footer-copy">&copy; 2025 Steven Johnston &nbsp;·&nbsp; Glasgow, Scotland</p>
+            <nav class="footer-links" aria-label="Footer navigation">
+                <a href="mailto:stevie.johnston@gmail.com">Email</a>
+                <a href="https://www.linkedin.com/in/steven-johnston-474a5333/" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="Steven_Johnston_CV.pdf?v=8" download>CV</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="main.js?v=6"></script>
+    <script src="chat.js?v=2" defer></script>
+</body>
+</html>

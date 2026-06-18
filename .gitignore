@@ -1,0 +1,20 @@
+# Secrets / local config — never commit
+.env
+.env.*
+.dev.vars
+*.pem
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Wrangler / Cloudflare local state
+.wrangler/
+**/.wrangler/
+
+# Temp / scratch
+tmp-pdfcheck/
+
+# OS / editor
+.DS_Store
+Thumbs.db

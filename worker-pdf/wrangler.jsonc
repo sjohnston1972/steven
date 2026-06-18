@@ -1,0 +1,17 @@
+{
+    "$schema": "https://unpkg.com/wrangler/config-schema.json",
+    "name": "steven-cv-pdf",
+    "main": "src/index.js",
+    "compatibility_date": "2026-06-10",
+    "compatibility_flags": ["nodejs_compat"],
+    "browser": {
+        "binding": "BROWSER"
+    },
+    "rules": [
+        {
+            "type": "Text",
+            "globs": ["**/*.html"],
+            "fallthrough": true
+        }
+    ]
+}

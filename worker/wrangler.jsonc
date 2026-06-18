@@ -1,0 +1,54 @@
+{
+    "$schema": "https://unpkg.com/wrangler/config-schema.json",
+    "name": "steven-cv",
+    "main": "src/index.js",
+    "compatibility_date": "2026-06-10",
+    "assets": {
+        "directory": "./public",
+        "binding": "ASSETS",
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "single-page-application",
+        "run_worker_first": true
+    },
+    "services": [
+        {
+            "binding": "PDF",
+            "service": "steven-cv-pdf"
+        }
+    ],
+    "ai": {
+        "binding": "AI"
+    },
+    "kv_namespaces": [
+        {
+            "binding": "CHAT_KV",
+            "id": "3f98a8900f4e4835acff3c9f5d43aef5"
+        }
+    ],
+    "d1_databases": [
+        {
+            "binding": "DB",
+            "database_name": "chat-logs",
+            "database_id": "9c83ca62-df07-4e1c-979c-f559f7bc8b4a"
+        }
+    ],
+    "unsafe": {
+        "bindings": [
+            {
+                "name": "CHAT_LIMITER",
+                "type": "ratelimit",
+                "namespace_id": "1001",
+                "simple": {
+                    "limit": 8,
+                    "period": 60
+                }
+            }
+        ]
+    },
+    "routes": [
+        {
+            "pattern": "steven.clydeford.net",
+            "custom_domain": true
+        }
+    ]
+}
