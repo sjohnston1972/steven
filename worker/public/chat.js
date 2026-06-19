@@ -65,15 +65,19 @@
             s = esc(s);
             s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
             s = s.replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, "$1<em>$2</em>");
-            s = s.replace(/[\w.+-]+@[\w-]+\.[A-Za-z]{2,}/g,
-                (m) => `<a href="mailto:${m}">${m}</a>`);
-            s = s.replace(/https?:\/\/[^\s<]+[^\s<.,)]/g,
-                (m) => `<a href="${m}" target="_blank" rel="noopener">${m}</a>`);
-            s = s.replace(/(^|[\s(])((?:www\.[\w-]+\.|linkedin\.com\/|steven\.clydeford\.net)[^\s<,)]*)/g,
-                (m, pre, dom) => {
-                    const clean = dom.replace(/[.,:;!?]+$/, "");
-                    const rest = dom.slice(clean.length);
-                    return `${pre}<a href="https://${clean}" target="_blank" rel="noopener">${clean}</a>${rest}`;
+            // Linkify in a single pass so emails are matched whole and never
+            // re-detected as bare domains. Alternation order matters: email,
+            // then full URL, then bare domain (any subdomain + curated TLDs, so
+            // tools.clydeford.net and friends become links without a whitelist).
+            s = s.replace(
+                /([\w.+-]+@[\w-]+\.[A-Za-z]{2,})|(https?:\/\/[^\s<]+)|(\b(?:[a-z0-9-]+\.)+(?:com|net|org|io|dev|ai|app|co\.uk)\b[^\s<]*)/gi,
+                (m, email, url, domain) => {
+                    if (email) return `<a href="mailto:${email}">${email}</a>`;
+                    const raw = url || domain;
+                    const clean = raw.replace(/[.,:;!?)]+$/, "");
+                    const rest = raw.slice(clean.length);
+                    const href = url ? clean : `https://${clean}`;
+                    return `<a href="${href}" target="_blank" rel="noopener">${clean}</a>${rest}`;
                 });
             return s;
         };
