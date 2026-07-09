@@ -35,6 +35,15 @@ export async function accumulateReply(stream) {
     const decoder = new TextDecoder();
     let buffer = "";
     let reply = "";
+    const parseLine = (line) => {
+        if (!line.startsWith("data:")) return;
+        const data = line.slice(5).trim();
+        if (!data || data === "[DONE]") return;
+        try {
+            const obj = JSON.parse(data);
+            if (typeof obj.response === "string") reply += obj.response;
+        } catch { /* ignore malformed/partial events */ }
+    };
     try {
         for (;;) {
             const { done, value } = await reader.read();
@@ -42,17 +51,14 @@ export async function accumulateReply(stream) {
             buffer += decoder.decode(value, { stream: true });
             let nl;
             while ((nl = buffer.indexOf("\n")) !== -1) {
-                const line = buffer.slice(0, nl).trim();
+                parseLine(buffer.slice(0, nl).trim());
                 buffer = buffer.slice(nl + 1);
-                if (!line.startsWith("data:")) continue;
-                const data = line.slice(5).trim();
-                if (!data || data === "[DONE]") continue;
-                try {
-                    const obj = JSON.parse(data);
-                    if (typeof obj.response === "string") reply += obj.response;
-                } catch { /* ignore malformed/partial events */ }
             }
         }
+        // A stream cut off mid-event ends without a trailing newline; parse the
+        // remainder as one line so the final tokens aren't silently dropped.
+        buffer += decoder.decode();
+        if (buffer) parseLine(buffer.trim());
     } finally {
         reader.releaseLock();
     }

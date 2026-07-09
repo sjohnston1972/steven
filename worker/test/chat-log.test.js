@@ -40,4 +40,17 @@ describe("accumulateReply", () => {
         ]);
         expect(await accumulateReply(stream)).toBe("ok");
     });
+
+    it("parses a final data line that lacks a trailing newline", async () => {
+        const stream = sseStream([
+            'data: {"response":"a"}\n\n',
+            'data: {"response":"b"}',
+        ]);
+        expect(await accumulateReply(stream)).toBe("ab");
+    });
+
+    it("resolves cleanly when the stream is cut off mid-JSON", async () => {
+        const stream = sseStream(['data: {"resp']);
+        expect(await accumulateReply(stream)).toBe("");
+    });
 });
