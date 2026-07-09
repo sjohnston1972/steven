@@ -48,4 +48,28 @@ describe("auth", () => {
     it("signSession throws a clear error when the secret is missing", async () => {
         await expect(signSession("", 60_000)).rejects.toThrow(/COOKIE_SECRET/);
     });
+
+    describe("session generations", () => {
+        it("round-trips a token signed with a generation", async () => {
+            const token = await signSession(SECRET, 60_000, 3);
+            expect(await verifySession(SECRET, token, 3)).toBe(true);
+        });
+
+        it("rejects a token whose generation is no longer current", async () => {
+            const token = await signSession(SECRET, 60_000, 3);
+            expect(await verifySession(SECRET, token, 4)).toBe(false);
+        });
+
+        it("rejects a token with a tampered generation segment", async () => {
+            const token = await signSession(SECRET, 60_000, 3);
+            const [expiry, , sig] = token.split(".");
+            expect(await verifySession(SECRET, `${expiry}.4.${sig}`, 4)).toBe(false);
+        });
+
+        it("rejects old-format two-segment tokens", async () => {
+            const token = await signSession(SECRET, 60_000);
+            const [expiry, , sig] = token.split(".");
+            expect(await verifySession(SECRET, `${expiry}.${sig}`)).toBe(false);
+        });
+    });
 });

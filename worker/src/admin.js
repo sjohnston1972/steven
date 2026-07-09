@@ -3,6 +3,7 @@ import { signSession, verifySession, timingSafeEqual } from "./auth.js";
 
 export const ADMIN_COOKIE = "sj_admin";
 const KV_KEY = "active_persona";
+const GEN_KEY = "admin_session_gen";
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 function readCookie(request, name) {
@@ -80,7 +81,8 @@ export async function handleAdmin(request, env, base) {
     if (!secret) {
         return htmlResponse(page("<h1>Manage</h1><p>This panel is misconfigured: COOKIE_SECRET is not set.</p>"), 500);
     }
-    const authed = await verifySession(secret, readCookie(request, ADMIN_COOKIE));
+    const gen = Number(await env.CHAT_KV.get(GEN_KEY)) || 0;
+    const authed = await verifySession(secret, readCookie(request, ADMIN_COOKIE), gen);
 
     if (request.method === "GET") {
         return authed
@@ -103,7 +105,7 @@ export async function handleAdmin(request, env, base) {
             if (!expected || !timingSafeEqual(password, expected)) {
                 return htmlResponse(loginForm(base, "Incorrect password."), 401);
             }
-            const token = await signSession(secret, SESSION_TTL_MS);
+            const token = await signSession(secret, SESSION_TTL_MS, gen);
             return new Response(null, {
                 status: 303,
                 headers: { Location: base, "Set-Cookie": sessionCookie(token, SESSION_TTL_MS / 1000) },
@@ -121,6 +123,10 @@ export async function handleAdmin(request, env, base) {
         }
 
         if (action === "logout") {
+            // Bumping the generation invalidates every outstanding admin
+            // session everywhere, not just this browser's cookie — the right
+            // trade-off for a single-admin site (revokes leaked tokens too).
+            await env.CHAT_KV.put(GEN_KEY, String(gen + 1));
             return new Response(null, {
                 status: 303,
                 headers: { Location: base, "Set-Cookie": `${ADMIN_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0` },

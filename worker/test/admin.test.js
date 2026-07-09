@@ -21,7 +21,10 @@ function post(form, cookie) {
 }
 
 describe("handleAdmin", () => {
-    beforeEach(async () => { await env.CHAT_KV.delete("active_persona"); });
+    beforeEach(async () => {
+        await env.CHAT_KV.delete("active_persona");
+        await env.CHAT_KV.delete("admin_session_gen");
+    });
 
     it("shows the password form when unauthenticated", async () => {
         const r = await handleAdmin(get(), testEnv(), BASE);
@@ -83,6 +86,35 @@ describe("handleAdmin", () => {
         const token = await signSession(CS, 60_000);
         const r = await handleAdmin(post({ action: "logout" }, token), testEnv(), BASE);
         expect(r.headers.get("Set-Cookie")).toContain("Max-Age=0");
+    });
+
+    describe("logout revocation", () => {
+        async function login() {
+            const r = await handleAdmin(post({ action: "login", password: PW }), testEnv(), BASE);
+            expect(r.status).toBe(303);
+            return r.headers.get("Set-Cookie").match(new RegExp(`${ADMIN_COOKIE}=([^;]+)`))[1];
+        }
+
+        it("rejects a token minted before logout, in any browser", async () => {
+            const stolen = await login();
+            // Panel works with the token before logout.
+            expect(await (await handleAdmin(get(stolen), testEnv(), BASE)).text()).toContain("Active persona");
+            await handleAdmin(post({ action: "logout" }, stolen), testEnv(), BASE);
+            // The same token (e.g. leaked to another device) no longer works.
+            const after = await handleAdmin(get(stolen), testEnv(), BASE);
+            expect(await after.text()).not.toContain("Active persona");
+            const setPost = await handleAdmin(post({ action: "set", persona: "security" }, stolen), testEnv(), BASE);
+            expect(setPost.status).toBe(403);
+            expect(await env.CHAT_KV.get("active_persona")).toBeNull();
+        });
+
+        it("allows logging in again after logout", async () => {
+            const first = await login();
+            await handleAdmin(post({ action: "logout" }, first), testEnv(), BASE);
+            const second = await login();
+            const r = await handleAdmin(get(second), testEnv(), BASE);
+            expect(await r.text()).toContain("Active persona");
+        });
     });
 
     describe("missing COOKIE_SECRET", () => {
