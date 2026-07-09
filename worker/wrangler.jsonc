@@ -42,6 +42,15 @@
                     "limit": 8,
                     "period": 60
                 }
+            },
+            {
+                "name": "ADMIN_LIMITER",
+                "type": "ratelimit",
+                "namespace_id": "1002",
+                "simple": {
+                    "limit": 5,
+                    "period": 60
+                }
             }
         ]
     },

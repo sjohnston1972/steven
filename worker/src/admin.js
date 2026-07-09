@@ -100,6 +100,16 @@ export async function handleAdmin(request, env, base) {
         const action = form.get("action");
 
         if (action === "login") {
+            // Throttle login attempts per IP before touching the password, so
+            // the admin password can't be brute-forced. Separate binding from
+            // the chat limiter so chat traffic can't lock out the admin.
+            if (env.ADMIN_LIMITER) {
+                const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+                const { success } = await env.ADMIN_LIMITER.limit({ key: ip });
+                if (!success) {
+                    return htmlResponse(loginForm(base, "Too many attempts, try again shortly."), 429);
+                }
+            }
             const password = form.get("password") || "";
             const expected = env.ADMIN_PASSWORD || "";
             if (!expected || !timingSafeEqual(password, expected)) {
