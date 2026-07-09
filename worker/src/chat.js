@@ -65,6 +65,24 @@ export async function accumulateReply(stream) {
     return reply;
 }
 
+// True when the assistant's reply steers the visitor toward contacting
+// Steven: his email address, his LinkedIn profile, or a contact/CV-download
+// phrase. Kept deliberately narrow — the logged flag is sticky, so a false
+// positive is permanent.
+const CTA_PATTERNS = [
+    "stevie.johnston@gmail.com",
+    "linkedin.com/in/steven-johnston",
+    "email steven",
+    "get in touch",
+    "download",
+];
+
+export function detectCta(reply) {
+    if (typeof reply !== "string" || !reply) return false;
+    const text = reply.toLowerCase();
+    return CTA_PATTERNS.some((p) => text.includes(p));
+}
+
 // Append this turn to the shared `chat-logs` D1 database. One row per
 // (site, ip): `site` is the request hostname, so no per-site config is needed.
 //
@@ -213,7 +231,7 @@ export async function handleChat(request, env, ctx, persona) {
     const userMessage = messages[messages.length - 1].content;
     ctx.waitUntil(
         accumulateReply(logStream)
-            .then((reply) => logChat(env, site, ip, userMessage, reply))
+            .then((reply) => logChat(env, site, ip, userMessage, reply, detectCta(reply)))
             .catch((e) => console.error("chat_log_error", String(e))),
     );
 

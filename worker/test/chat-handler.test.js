@@ -37,7 +37,7 @@ function stubEnv({ aiRun }) {
                 put: async (key, value) => { kvPuts.push({ key, value }); },
             },
             AI: { run: aiRun },
-            DB: { prepare: () => ({ bind: () => ({ run: async () => { dbRuns.push(true); } }) }) },
+            DB: { prepare: () => ({ bind: (...args) => ({ run: async () => { dbRuns.push(args); } }) }) },
         },
         kvPuts,
         dbRuns,
@@ -82,5 +82,20 @@ describe("handleChat AI failure handling", () => {
         const keys = kvPuts.map((p) => p.key);
         expect(keys.some((k) => k.includes("198.51.100.7"))).toBe(true);
         expect(keys.some((k) => k.includes("_global"))).toBe(true);
+    });
+
+    it("logs cta=true when the reply contains a contact vector", async () => {
+        const { env, dbRuns } = stubEnv({
+            aiRun: async () => sseStream(['data: {"response":"Just email Steven at stevie.johnston@gmail.com."}\n\n', "data: [DONE]\n\n"]),
+        });
+        const { ctx, pending } = stubCtx();
+        const res = await handleChat(chatRequest(), env, ctx, null);
+        await res.text();
+        await Promise.all(pending);
+        expect(dbRuns.length).toBe(1);
+        // logChat binds the sticky-CTA flag as the string "true"/"false".
+        expect(dbRuns[0]).toContain("true");
+        const initial = JSON.parse(dbRuns[0][3]);
+        expect(initial.cta).toBe(true);
     });
 });
