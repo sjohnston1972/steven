@@ -73,7 +73,13 @@ function sessionCookie(token, ttlSeconds) {
 }
 
 export async function handleAdmin(request, env, base) {
-    const secret = env.COOKIE_SECRET || "";
+    const secret = env.COOKIE_SECRET;
+    // Fail closed, deliberately: without the signing secret no session can be
+    // verified or minted, so return a controlled error instead of letting
+    // WebCrypto throw on an empty HMAC key.
+    if (!secret) {
+        return htmlResponse(page("<h1>Manage</h1><p>This panel is misconfigured: COOKIE_SECRET is not set.</p>"), 500);
+    }
     const authed = await verifySession(secret, readCookie(request, ADMIN_COOKIE));
 
     if (request.method === "GET") {

@@ -38,4 +38,14 @@ describe("auth", () => {
         expect(await verifySession(SECRET, "")).toBe(false);
         expect(await verifySession(SECRET, "nonsense")).toBe(false);
     });
+
+    it("returns false without throwing when the secret is empty", async () => {
+        const token = await signSession(SECRET, 60_000);
+        expect(await verifySession("", token)).toBe(false);
+        expect(await verifySession(undefined, token)).toBe(false);
+    });
+
+    it("signSession throws a clear error when the secret is missing", async () => {
+        await expect(signSession("", 60_000)).rejects.toThrow(/COOKIE_SECRET/);
+    });
 });

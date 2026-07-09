@@ -84,4 +84,21 @@ describe("handleAdmin", () => {
         const r = await handleAdmin(post({ action: "logout" }, token), testEnv(), BASE);
         expect(r.headers.get("Set-Cookie")).toContain("Max-Age=0");
     });
+
+    describe("missing COOKIE_SECRET", () => {
+        const noSecretEnv = () => ({ CHAT_KV: env.CHAT_KV, ADMIN_PASSWORD: PW });
+
+        it("returns a controlled response on GET, even with a cookie", async () => {
+            const token = await signSession(CS, 60_000);
+            const r = await handleAdmin(get(token), noSecretEnv(), BASE);
+            expect(r.status).toBe(500);
+            expect(await r.text()).toContain("misconfigured");
+        });
+
+        it("never mints a session, even with the right password", async () => {
+            const r = await handleAdmin(post({ action: "login", password: PW }), noSecretEnv(), BASE);
+            expect(r.status).toBe(500);
+            expect(r.headers.get("Set-Cookie")).toBeNull();
+        });
+    });
 });

@@ -25,12 +25,16 @@ export function timingSafeEqual(a, b) {
 
 // ttlMs > 0 for a valid token; negative ttl produces an already-expired token (tests).
 export async function signSession(secret, ttlMs) {
+    if (!secret) throw new Error("COOKIE_SECRET not configured");
     const expiry = String(Date.now() + ttlMs);
     const sig = await hmac(secret, expiry);
     return `${expiry}.${sig}`;
 }
 
 export async function verifySession(secret, token) {
+    // Fail closed: WebCrypto rejects zero-length HMAC keys, so an unset
+    // secret must short-circuit here rather than throw inside hmac().
+    if (!secret) return false;
     if (!token || typeof token !== "string" || !token.includes(".")) return false;
     const idx = token.lastIndexOf(".");
     const expiry = token.slice(0, idx);
