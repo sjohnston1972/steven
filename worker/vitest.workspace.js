@@ -14,7 +14,7 @@ export default defineWorkspace([
     {
         test: {
             name: "unit",
-            include: ["test/personas.test.js", "test/auth.test.js", "test/chat-log.test.js"],
+            include: ["test/personas.test.js", "test/auth.test.js", "test/chat-log.test.js", "test/chat-handler.test.js"],
             environment: "node",
         },
     },
@@ -22,7 +22,7 @@ export default defineWorkspace([
         test: {
             name: "workers",
             include: ["test/**/*.test.js"],
-            exclude: ["test/personas.test.js", "test/auth.test.js", "test/chat-log.test.js"],
+            exclude: ["test/personas.test.js", "test/auth.test.js", "test/chat-log.test.js", "test/chat-handler.test.js"],
             poolOptions: {
                 workers: {
                     miniflare: {
