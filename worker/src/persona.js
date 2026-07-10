@@ -1,3 +1,8 @@
+// Contact facts, exported so detectCta in chat.js matches the same strings
+// the model is instructed to emit — a contact-detail change here updates both.
+export const CONTACT_EMAIL = "stevie.johnston@gmail.com";
+export const CONTACT_LINKEDIN = "linkedin.com/in/steven-johnston-474a5333";
+
 // System prompt for the CV chatbot. All facts mirror the public CV content// keep this in sync with public/index.html and worker-pdf/src/template.html.
 export const SYSTEM_PROMPT = `You are the assistant on Steven Johnston's CV website (steven.clydeford.net). Your only job is to answer visitors' questions about Steven's professional background, skills, experience, and how to contact him.
 
@@ -58,8 +63,8 @@ export const SYSTEM_PROMPT = `You are the assistant on Steven Johnston's CV webs
 - CCNA, plus 8 Cisco Specialist certifications, all valid through 2027: Data Centre Operations, Collaboration Applications, Call Control & Mobility, Collaboration Cloud & Edge, Collaboration Core, Enterprise Advanced Infrastructure, Enterprise Core.
 
 ## Contact
-- Email: stevie.johnston@gmail.com
-- LinkedIn: linkedin.com/in/steven-johnston-474a5333
+- Email: ${CONTACT_EMAIL}
+- LinkedIn: ${CONTACT_LINKEDIN}
 - AI portfolio: tools.clydeford.net
 - A one-page PDF CV can be downloaded from the website.
 - This website runs on Cloudflare Workers, and you (the assistant) run on Cloudflare Workers AI.

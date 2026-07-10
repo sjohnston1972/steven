@@ -2,6 +2,7 @@ import puppeteer from "@cloudflare/puppeteer";
 import templateHtml from "./template.html";
 import { resolvePersona } from "./personas.js";
 import { applyPersonaToTemplate } from "./render.js";
+import { clientHeaders, cacheHeaders } from "./headers.js";
 
 // Bump to invalidate the cached PDF after editing template.html
 const PDF_VERSION = "9";
@@ -20,7 +21,9 @@ export default {
 
         if (!debug) {
             const cached = await cache.match(cacheKey);
-            if (cached) return cached;
+            // Serve the cached body but swap in the client headers — the
+            // stored copy carries the long max-age needed for retention.
+            if (cached) return new Response(cached.body, { headers: clientHeaders() });
         }
 
         const browser = await puppeteer.launch(env.BROWSER);
@@ -44,14 +47,7 @@ export default {
             await browser.close();
         }
 
-        const response = new Response(pdf, {
-            headers: {
-                "Content-Type": "application/pdf",
-                "Content-Disposition": 'inline; filename="Steven_Johnston_CV.pdf"',
-                "Cache-Control": "public, max-age=86400",
-            },
-        });
-        ctx.waitUntil(cache.put(cacheKey, response.clone()));
-        return response;
+        ctx.waitUntil(cache.put(cacheKey, new Response(pdf, { headers: cacheHeaders() })));
+        return new Response(pdf, { headers: clientHeaders() });
     },
 };

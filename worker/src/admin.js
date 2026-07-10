@@ -3,6 +3,7 @@ import { signSession, verifySession, timingSafeEqual } from "./auth.js";
 
 export const ADMIN_COOKIE = "sj_admin";
 const KV_KEY = "active_persona";
+const GEN_KEY = "admin_session_gen";
 const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 function readCookie(request, name) {
@@ -73,8 +74,23 @@ function sessionCookie(token, ttlSeconds) {
 }
 
 export async function handleAdmin(request, env, base) {
-    const secret = env.COOKIE_SECRET || "";
-    const authed = await verifySession(secret, readCookie(request, ADMIN_COOKIE));
+    const secret = env.COOKIE_SECRET;
+    // Fail closed, deliberately: without the signing secret no session can be
+    // verified or minted, so return a controlled error instead of letting
+    // WebCrypto throw on an empty HMAC key.
+    if (!secret) {
+        return htmlResponse(page("<h1>Manage</h1><p>This panel is misconfigured: COOKIE_SECRET is not set.</p>"), 500);
+    }
+    // A KV failure must not take down the whole panel: fall back to gen 0 so
+    // the login form still renders. Sessions minted at a bumped generation
+    // fail verification until KV recovers, which errs toward re-login.
+    let gen = 0;
+    try {
+        gen = Number(await env.CHAT_KV.get(GEN_KEY)) || 0;
+    } catch (e) {
+        console.error("admin_gen_read_error", String(e));
+    }
+    const authed = await verifySession(secret, readCookie(request, ADMIN_COOKIE), gen);
 
     if (request.method === "GET") {
         return authed
@@ -92,12 +108,26 @@ export async function handleAdmin(request, env, base) {
         const action = form.get("action");
 
         if (action === "login") {
+            // Throttle login attempts per IP before touching the password, so
+            // the admin password can't be brute-forced. Separate binding from
+            // the chat limiter so chat traffic can't lock out the admin.
+            if (env.ADMIN_LIMITER) {
+                const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+                const { success } = await env.ADMIN_LIMITER.limit({ key: ip });
+                if (!success) {
+                    return htmlResponse(loginForm(base, "Too many attempts, try again shortly."), 429);
+                }
+            } else {
+                // Don't lock the admin out over a config slip, but make the
+                // missing throttle loudly visible in the logs.
+                console.error("admin_limiter_missing", "ADMIN_LIMITER binding absent — login throttling disabled");
+            }
             const password = form.get("password") || "";
             const expected = env.ADMIN_PASSWORD || "";
             if (!expected || !timingSafeEqual(password, expected)) {
                 return htmlResponse(loginForm(base, "Incorrect password."), 401);
             }
-            const token = await signSession(secret, SESSION_TTL_MS);
+            const token = await signSession(secret, SESSION_TTL_MS, gen);
             return new Response(null, {
                 status: 303,
                 headers: { Location: base, "Set-Cookie": sessionCookie(token, SESSION_TTL_MS / 1000) },
@@ -115,6 +145,13 @@ export async function handleAdmin(request, env, base) {
         }
 
         if (action === "logout") {
+            // Bumping the generation invalidates every outstanding admin
+            // session everywhere, not just this browser's cookie — the right
+            // trade-off for a single-admin site (revokes leaked tokens too).
+            // KV is eventually consistent, so revocation (and a login racing
+            // this logout) can lag up to ~60s at other locations; acceptable
+            // for one admin, who normally acts from a single location.
+            await env.CHAT_KV.put(GEN_KEY, String(gen + 1));
             return new Response(null, {
                 status: 303,
                 headers: { Location: base, "Set-Cookie": `${ADMIN_COOKIE}=; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=0` },
