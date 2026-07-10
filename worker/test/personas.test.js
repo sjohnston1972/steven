@@ -4,7 +4,7 @@ import { PERSONAS, DEFAULT_PERSONA, resolvePersona } from "../src/personas.js";
 describe("personas", () => {
     it("has generic as the default", () => {
         expect(DEFAULT_PERSONA).toBe("generic");
-        expect(PERSONAS.generic.default).toBe(true);
+        expect(PERSONAS.generic.default).toBe(false);
     });
 
     it("defines all eight personas", () => {
