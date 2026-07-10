@@ -74,6 +74,12 @@ describe("detectCta", () => {
         expect(detectCta("Yes. Steven works across security tooling and hardening, with experience in detection, response and building defensive automation.")).toBe(false);
     });
 
+    it("does not fire on incidental 'download' mentions, only CV-download phrases", () => {
+        expect(detectCta("Steven built pipelines handling large file downloads.")).toBe(false);
+        expect(detectCta("The best way is to email Steven directly, or grab his CV from the download link on this page.")).toBe(true);
+        expect(detectCta("You can download his CV from this page.")).toBe(true);
+    });
+
     it("handles empty and non-string input", () => {
         expect(detectCta("")).toBe(false);
         expect(detectCta(undefined)).toBe(false);

@@ -155,6 +155,20 @@ describe("handleAdmin", () => {
         });
     });
 
+    describe("KV failure resilience", () => {
+        it("still renders the login form when the generation read fails", async () => {
+            const broken = testEnv({
+                CHAT_KV: {
+                    get: async () => { throw new Error("kv unavailable"); },
+                    put: async () => { throw new Error("kv unavailable"); },
+                },
+            });
+            const r = await handleAdmin(get(), broken, BASE);
+            expect(r.status).toBe(200);
+            expect(await r.text()).toContain("type=\"password\"");
+        });
+    });
+
     describe("missing COOKIE_SECRET", () => {
         const noSecretEnv = () => ({ CHAT_KV: env.CHAT_KV, ADMIN_PASSWORD: PW });
 

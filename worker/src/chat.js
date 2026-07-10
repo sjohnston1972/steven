@@ -1,4 +1,4 @@
-import { SYSTEM_PROMPT } from "./persona.js";
+import { SYSTEM_PROMPT, CONTACT_EMAIL, CONTACT_LINKEDIN } from "./persona.js";
 
 // Builds the effective system prompt for the active persona. Generic returns
 // the base prompt unchanged; a focused persona appends an emphasis note while
@@ -70,11 +70,16 @@ export async function accumulateReply(stream) {
 // phrase. Kept deliberately narrow — the logged flag is sticky, so a false
 // positive is permanent.
 const CTA_PATTERNS = [
-    "stevie.johnston@gmail.com",
-    "linkedin.com/in/steven-johnston",
+    CONTACT_EMAIL,
+    CONTACT_LINKEDIN,
     "email steven",
     "get in touch",
-    "download",
+    // CV-download phrasing only — a bare "download" would flag incidental
+    // mentions (e.g. "file downloads") and the flag can never be unset.
+    "download link",
+    "download his cv",
+    "download the cv",
+    "cv download",
 ];
 
 export function detectCta(reply) {
@@ -218,12 +223,20 @@ export async function handleChat(request, env, ctx, persona) {
     }
 
     // Count this turn only once the AI call has succeeded, so outages don't
-    // burn the visitor's daily allowance.
+    // burn the visitor's daily allowance. Re-read the counters here: the
+    // pre-AI reads are stale by the full model latency, and concurrent turns
+    // would otherwise overwrite each other's increments.
     ctx.waitUntil(
-        Promise.all([
-            env.CHAT_KV.put(ipKey, String((Number(ipCount) || 0) + 1), { expirationTtl: COUNTER_TTL_SECONDS }),
-            env.CHAT_KV.put(globalKey, String((Number(globalCount) || 0) + 1), { expirationTtl: COUNTER_TTL_SECONDS }),
-        ]),
+        (async () => {
+            const [ipNow, globalNow] = await Promise.all([
+                env.CHAT_KV.get(ipKey),
+                env.CHAT_KV.get(globalKey),
+            ]);
+            await Promise.all([
+                env.CHAT_KV.put(ipKey, String((Number(ipNow) || 0) + 1), { expirationTtl: COUNTER_TTL_SECONDS }),
+                env.CHAT_KV.put(globalKey, String((Number(globalNow) || 0) + 1), { expirationTtl: COUNTER_TTL_SECONDS }),
+            ]);
+        })(),
     );
     const site = new URL(request.url).hostname;
     // Only this turn's user message — the helper appends it (and the reply) to

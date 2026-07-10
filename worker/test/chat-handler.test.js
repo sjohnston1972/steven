@@ -84,6 +84,26 @@ describe("handleChat AI failure handling", () => {
         expect(keys.some((k) => k.includes("_global"))).toBe(true);
     });
 
+    it("re-reads counters after the AI call so concurrent turns are not lost", async () => {
+        // First read (pre-AI limit check) sees no counter; by write time another
+        // in-flight turn has bumped it to 5. The put must reflect the re-read.
+        const reads = new Map();
+        const { env, kvPuts } = stubEnv({
+            aiRun: async () => sseStream(["data: [DONE]\n\n"]),
+        });
+        env.CHAT_KV.get = async (key) => {
+            const n = (reads.get(key) || 0) + 1;
+            reads.set(key, n);
+            return n === 1 ? null : "5";
+        };
+        const { ctx, pending } = stubCtx();
+        const res = await handleChat(chatRequest(), env, ctx, null);
+        await res.text();
+        await Promise.all(pending);
+        expect(kvPuts.length).toBe(2);
+        for (const p of kvPuts) expect(p.value).toBe("6");
+    });
+
     it("logs cta=true when the reply contains a contact vector", async () => {
         const { env, dbRuns } = stubEnv({
             aiRun: async () => sseStream(['data: {"response":"Just email Steven at stevie.johnston@gmail.com."}\n\n', "data: [DONE]\n\n"]),

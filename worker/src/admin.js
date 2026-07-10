@@ -81,7 +81,15 @@ export async function handleAdmin(request, env, base) {
     if (!secret) {
         return htmlResponse(page("<h1>Manage</h1><p>This panel is misconfigured: COOKIE_SECRET is not set.</p>"), 500);
     }
-    const gen = Number(await env.CHAT_KV.get(GEN_KEY)) || 0;
+    // A KV failure must not take down the whole panel: fall back to gen 0 so
+    // the login form still renders. Sessions minted at a bumped generation
+    // fail verification until KV recovers, which errs toward re-login.
+    let gen = 0;
+    try {
+        gen = Number(await env.CHAT_KV.get(GEN_KEY)) || 0;
+    } catch (e) {
+        console.error("admin_gen_read_error", String(e));
+    }
     const authed = await verifySession(secret, readCookie(request, ADMIN_COOKIE), gen);
 
     if (request.method === "GET") {
@@ -109,6 +117,10 @@ export async function handleAdmin(request, env, base) {
                 if (!success) {
                     return htmlResponse(loginForm(base, "Too many attempts, try again shortly."), 429);
                 }
+            } else {
+                // Don't lock the admin out over a config slip, but make the
+                // missing throttle loudly visible in the logs.
+                console.error("admin_limiter_missing", "ADMIN_LIMITER binding absent — login throttling disabled");
             }
             const password = form.get("password") || "";
             const expected = env.ADMIN_PASSWORD || "";
@@ -136,6 +148,9 @@ export async function handleAdmin(request, env, base) {
             // Bumping the generation invalidates every outstanding admin
             // session everywhere, not just this browser's cookie — the right
             // trade-off for a single-admin site (revokes leaked tokens too).
+            // KV is eventually consistent, so revocation (and a login racing
+            // this logout) can lag up to ~60s at other locations; acceptable
+            // for one admin, who normally acts from a single location.
             await env.CHAT_KV.put(GEN_KEY, String(gen + 1));
             return new Response(null, {
                 status: 303,
