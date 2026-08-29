@@ -2,331 +2,185 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<title>Steven Johnston - Curriculum Vitae</title>
+<meta name="author" content="Steven Johnston">
+<meta name="description" content="CV for Steven Johnston, Technical Lead - network, security, cloud, and AI automation architecture.">
 <style>
-    @page { size: A4; margin: 0; }
+    /* ── ATS-first layout ─────────────────────────────────────────────
+       This document is parsed by applicant tracking systems before a
+       human ever sees it, so every rule here is chosen for extraction
+       rather than for looks:
+         · one linear column - no side-by-side blocks, so the PDF text
+           stream comes out in reading order
+         · no fixed height and no overflow clipping - content flows onto
+           a second page instead of being silently cut off
+         · locally-available standard faces only - no webfonts, so there
+           is no network fetch to stall the render and no exotic glyph
+           mapping to confuse text extraction
+         · borders, never background fills; black text on white
+         · real <ul>/<li> with the standard disc marker rather than
+           CSS-drawn shapes: the reader sees bullets, while the extracted
+           text is clean lines with no stray glyphs in front of them
+         · conventional section headings (Professional Summary, Technical
+           Skills, Professional Experience, Certifications) that parsers
+           recognise verbatim
+    ───────────────────────────────────────────────────────────────── */
+
+    @page { size: A4; margin: 14mm 16mm; }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    :root {
-        --ink:        #1A1814;
-        --ink-soft:   #4A4640;
-        --ink-faint:  #8A867F;
-        --dark:       #0B0D16;
-        --dark-2:     #121522;
-        --gold:       #C8A96A;
-        --gold-deep:  #9A6F2A;
-        --blue:       #2563EB;
-        --paper:      #FFFFFF;
-        --panel:      #F4F2EE;
-        --line:       rgba(0,0,0,0.10);
-    }
-
-    html, body { width: 210mm; height: 296mm; overflow: hidden; }
     body {
-        font-family: 'DM Sans', sans-serif;
-        color: var(--ink);
-        background: var(--paper);
-        display: flex;
-        flex-direction: column;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+        font-family: Arial, "Helvetica Neue", Helvetica, "Liberation Sans", sans-serif;
+        font-size: 10pt;
+        line-height: 1.35;
+        color: #000000;
+        background: #FFFFFF;
     }
 
-    /* ── Header ─────────────────────────────────────── */
-    .head {
-        background: var(--dark);
-        color: #ECEAE4;
-        padding: 6.5mm 11mm 5.5mm;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
+    a { color: #000000; text-decoration: none; }
+
+    /* ── Contact block ──────────────────────────────── */
+    .name {
+        font-size: 20pt;
+        font-weight: bold;
+        line-height: 1.1;
     }
-    .head-name {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-weight: 800;
-        font-size: 24pt;
-        line-height: 1;
-        letter-spacing: 0.2px;
+    .headline {
+        font-size: 11.5pt;
+        font-weight: bold;
+        margin-top: 1.5mm;
     }
-    .head-name em { font-style: normal; color: var(--gold); }
-    .head-role {
-        margin-top: 2.6mm;
-        font-size: 8.5pt;
-        font-weight: 600;
-        letter-spacing: 2.6px;
-        text-transform: uppercase;
-        color: var(--gold);
-    }
-    .head-contact {
-        text-align: right;
-        font-size: 7.2pt;
-        line-height: 1.7;
-        color: rgba(236,234,228,0.82);
-    }
-    .head-contact strong { color: #ECEAE4; font-weight: 500; }
-    .head-contact a { color: inherit; text-decoration: none; }
-    .badges { margin-top: 2mm; display: flex; gap: 2mm; justify-content: flex-end; }
-    .badge {
-        border: 0.6pt solid var(--gold);
-        color: var(--gold);
-        border-radius: 999px;
-        padding: 0.8mm 2.6mm;
-        font-size: 6.4pt;
-        font-weight: 600;
-        letter-spacing: 1.2px;
-        text-transform: uppercase;
+    .contact {
+        font-size: 9.5pt;
+        margin-top: 1.5mm;
     }
 
-    /* ── Columns ────────────────────────────────────── */
-    .cols { flex: 1; display: flex; min-height: 0; overflow: hidden; }
-    .side {
-        width: 64mm;
-        flex-shrink: 0;
-        background: var(--panel);
-        padding: 5.5mm 6.5mm 5mm 11mm;
-    }
-    .main { flex: 1; padding: 5.5mm 11mm 5mm 7.5mm; }
+    /* ── Sections ───────────────────────────────────── */
+    section { margin-top: 5mm; }
 
     h2 {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 8pt;
-        font-weight: 700;
-        letter-spacing: 2.4px;
-        text-transform: uppercase;
-        color: var(--gold-deep);
-        border-bottom: 0.7pt solid var(--line);
-        padding-bottom: 1.2mm;
-        margin-bottom: 2.2mm;
-    }
-    .side section + section, .main section + section { margin-top: 3mm; }
-
-    /* ── Sidebar ────────────────────────────────────── */
-    .profile p { font-size: 7.4pt; line-height: 1.5; color: var(--ink-soft); }
-    .profile p + p { margin-top: 1.5mm; }
-
-    .skill-group { margin-bottom: 2mm; }
-    .skill-group h3 {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 7.6pt;
-        font-weight: 700;
-        color: var(--ink);
-        margin-bottom: 1mm;
-    }
-    .tags { display: flex; flex-wrap: wrap; gap: 1mm; }
-    .tag {
-        background: #FFFFFF;
-        border: 0.5pt solid var(--line);
-        border-radius: 2pt;
-        padding: 0.5mm 1.5mm;
-        font-size: 6.3pt;
-        color: var(--ink-soft);
+        font-size: 11pt;
+        font-weight: bold;
+        border-bottom: 1pt solid #000000;
+        padding-bottom: 1mm;
+        margin-bottom: 2mm;
     }
 
-    .cred { display: flex; align-items: center; gap: 2.2mm; margin-bottom: 1.8mm; }
-    .cred-badge {
-        width: 8.5mm; height: 8.5mm;
-        flex-shrink: 0;
-        border: 0.7pt solid var(--gold-deep);
-        border-radius: 2pt;
-        color: var(--gold-deep);
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-weight: 800;
-        font-size: 6.8pt;
-        display: flex; align-items: center; justify-content: center;
-    }
-    .cred-name { font-size: 7.8pt; font-weight: 600; color: var(--ink); }
-    .cred-sub  { font-size: 6.8pt; color: var(--ink-faint); margin-top: 0.4mm; }
-    .cred-note { font-size: 6.6pt; color: var(--ink-faint); line-height: 1.55; margin-top: 1mm; }
+    p + p { margin-top: 1.8mm; }
+
+    ul { margin-left: 4.5mm; }
+    li { margin-bottom: 0.8mm; }
 
     /* ── Experience ─────────────────────────────────── */
-    .job { margin-bottom: 3.2mm; }
-    .job-head { display: flex; justify-content: space-between; align-items: baseline; }
-    .job-title {
-        font-family: 'Bricolage Grotesque', sans-serif;
-        font-size: 9.5pt;
-        font-weight: 700;
-        color: var(--ink);
-    }
-    .job-dates { font-size: 7.2pt; font-weight: 500; color: var(--gold-deep); white-space: nowrap; }
-    .job-co { font-size: 7.6pt; color: var(--blue); font-weight: 500; margin-top: 0.5mm; }
-    .job ul { list-style: none; margin-top: 1.2mm; }
-    .job li {
-        font-size: 7.4pt;
-        line-height: 1.42;
-        color: var(--ink-soft);
-        padding-left: 3.2mm;
-        position: relative;
-        margin-bottom: 0.6mm;
-    }
-    .job li::before {
-        content: "";
-        position: absolute;
-        left: 0; top: 1.55mm;
-        width: 1.3mm; height: 1.3mm;
-        border-radius: 50%;
-        background: var(--gold);
-    }
-
-    /* ── Persona re-emphasis ─────────────────────────── */
-    .skill-groups { display: flex; flex-direction: column; }
-    body[data-persona="networking"]    .skill-group[data-skill="networking"]    { order: -1; }
-    body[data-persona="security"]      .skill-group[data-skill="security"]      { order: -1; }
-    body[data-persona="cloud"]         .skill-group[data-skill="cloud"]         { order: -1; }
-    body[data-persona="collaboration"] .skill-group[data-skill="collaboration"] { order: -1; }
-    body[data-persona="datacentre"]    .skill-group[data-skill="datacentre"]    { order: -1; }
-    body[data-persona="ai"]            .skill-group[data-skill="ai"]            { order: -1; }
-    body[data-persona="techlead"]      .skill-group[data-skill="techlead"]      { order: -1; }
+    .job { margin-bottom: 3.5mm; break-inside: avoid; }
+    .job:last-child { margin-bottom: 0; }
+    .job-title { font-weight: bold; }
+    .job-meta { margin-bottom: 1mm; }
+    .job ul { margin-top: 0; }
 </style>
 </head>
 <body>
 
-    <header class="head">
-        <div>
-            <div class="head-name">Steven <em>Johnston</em></div>
-            <div class="head-role">Technical Lead</div>
-        </div>
-        <div class="head-contact">
-            <strong><a href="mailto:stevie.johnston@gmail.com">stevie.johnston@gmail.com</a></strong><br>
-            <a href="https://www.linkedin.com/in/steven-johnston-474a5333/">linkedin.com/in/steven-johnston-474a5333</a><br>
-            <a href="https://steven.clydeford.net">steven.clydeford.net</a> &nbsp;·&nbsp; Glasgow, Scotland
-            <div class="badges">
-                <span class="badge">SC Cleared</span>
-                <span class="badge">CCNP Enterprise</span>
-                <span class="badge">CCNP Collaboration</span>
-            </div>
-        </div>
+    <header>
+        <p class="name">Steven Johnston</p>
+        <p class="headline">Technical Lead</p>
+        <p class="contact">Glasgow, Scotland | <a href="mailto:stevie.johnston@gmail.com">stevie.johnston@gmail.com</a></p>
+        <p class="contact"><a href="https://www.linkedin.com/in/steven-johnston-474a5333/">linkedin.com/in/steven-johnston-474a5333</a> | <a href="https://steven.clydeford.net">steven.clydeford.net</a></p>
     </header>
 
-    <div class="cols">
-        <aside class="side">
+    <section>
+        <h2>PROFESSIONAL SUMMARY</h2>
+        <p><span id="persona-summary">I lead the technical design and delivery of infrastructure projects for enterprise and public sector clients, owning the architecture, setting standards across concurrent programmes, and seeing complex multi-vendor deployments through to production.</span></p>
+        <p>SC cleared and working at Lead Architect level, I cover networking, security, cloud, and AI-driven automation across global enterprise and public sector environments, including critical national infrastructure.</p>
+        <p>Recent focus: bringing agentic AI into infrastructure operations, automation platforms that cut manual effort and speed up delivery.</p>
+    </section>
 
-            <section class="profile">
-                <h2>Profile</h2>
-                <p><span id="persona-summary">I lead the technical design and delivery of infrastructure projects for enterprise and public sector clients, owning the architecture, setting standards across concurrent programmes, and seeing complex multi-vendor deployments through to production.</span></p>
-                <p>SC cleared and working at Lead Architect level, I cover networking, security, cloud, and AI-driven automation across global enterprise and public sector environments, including critical national infrastructure.</p>
-                <p>Recent focus: bringing agentic AI into infrastructure operations, automation platforms that cut manual effort and speed up delivery.</p>
-            </section>
+    <section>
+        <h2>TECHNICAL SKILLS</h2>
+        <ul class="skills">
+            <li data-skill="networking"><strong>Network Infrastructure:</strong> Network Architecture, SD-WAN, BGP, OSPF, LAN and WAN Design, Multi-site Connectivity</li>
+            <li data-skill="security"><strong>Security:</strong> Cisco Firewall, Palo Alto Networks, Fortinet, Cisco ISE, Zero Trust Network Access, VPN, Cisco Umbrella, Cisco Duo, Network Segmentation</li>
+            <li data-skill="cloud"><strong>Cloud and Hybrid:</strong> Azure Networking, Azure Virtual WAN, ExpressRoute, Transit Hub Architecture, NVA Firewalls, Secure Hybrid Connectivity</li>
+            <li data-skill="collaboration"><strong>Collaboration:</strong> Cisco Webex, Microsoft Teams, Cisco CUCM, SIP, Cisco CUBE, Enterprise Voice</li>
+            <li data-skill="datacentre"><strong>Datacentre:</strong> Cisco Nexus, Cisco UCS, VMware, Nutanix, Datacentre Design, Datacentre Migration</li>
+            <li data-skill="ai"><strong>Automation and AI:</strong> Python, Network Automation, Agentic AI Workflows, LLM Tooling, Docker, DevOps, CI/CD, Infrastructure as Code</li>
+            <li data-skill="techlead"><strong>Leadership:</strong> Team Leadership, Programme Delivery, Solution Architecture, Technical Standards, Mentoring, Resource Planning</li>
+        </ul>
+    </section>
 
-            <section>
-                <h2>Expertise</h2>
-                <div class="skill-groups">
-                <div class="skill-group" data-skill="networking">
-                    <h3>Infrastructure</h3>
-                    <div class="tags"><span class="tag">Network Architecture</span><span class="tag">SD-WAN</span><span class="tag">BGP &amp; OSPF</span><span class="tag">LAN / WAN Design</span></div>
-                </div>
-                <div class="skill-group" data-skill="security">
-                    <h3>Security</h3>
-                    <div class="tags"><span class="tag">Cisco Firewall</span><span class="tag">Palo Alto</span><span class="tag">Fortinet</span><span class="tag">Cisco ISE</span><span class="tag">Zero Trust</span><span class="tag">VPN</span><span class="tag">Umbrella &amp; DUO</span></div>
-                </div>
-                <div class="skill-group" data-skill="cloud">
-                    <h3>Cloud &amp; Hybrid</h3>
-                    <div class="tags"><span class="tag">Azure Networking</span><span class="tag">Transit Hubs</span><span class="tag">Secure Access</span><span class="tag">Cloud</span></div>
-                </div>
-                <div class="skill-group" data-skill="collaboration">
-                    <h3>Collaboration</h3>
-                    <div class="tags"><span class="tag">Cisco Webex</span><span class="tag">MS Teams</span><span class="tag">SIP &amp; CUBE</span><span class="tag">CUCM</span></div>
-                </div>
-                <div class="skill-group" data-skill="datacentre">
-                    <h3>Datacentre</h3>
-                    <div class="tags"><span class="tag">Cisco UCS</span><span class="tag">VMware</span><span class="tag">Cisco Nexus</span><span class="tag">DC Design</span><span class="tag">Nutanix</span></div>
-                </div>
-                <div class="skill-group" data-skill="ai">
-                    <h3>Automation &amp; Dev</h3>
-                    <div class="tags"><span class="tag">Python</span><span class="tag">Network Automation</span><span class="tag">Docker</span><span class="tag">AI Workflows</span><span class="tag">DevOps</span></div>
-                </div>
-                <div class="skill-group" data-skill="techlead">
-                    <h3>Leadership</h3>
-                    <div class="tags"><span class="tag">Team Leadership</span><span class="tag">Programme Delivery</span><span class="tag">Solution Architecture</span><span class="tag">Mentoring</span></div>
-                </div>
-                </div>
-            </section>
+    <section>
+        <h2>PROFESSIONAL EXPERIENCE</h2>
 
-            <section>
-                <h2>Credentials</h2>
-                <div class="cred">
-                    <div class="cred-badge">SC</div>
-                    <div><div class="cred-name">SC Cleared</div><div class="cred-sub">UK Government Security Clearance</div></div>
-                </div>
-                <div class="cred">
-                    <div class="cred-badge">CCNP</div>
-                    <div><div class="cred-name">CCNP Enterprise</div><div class="cred-sub">Routing &amp; Switching · valid through 2027</div></div>
-                </div>
-                <div class="cred">
-                    <div class="cred-badge">CCNP</div>
-                    <div><div class="cred-name">CCNP Collaboration</div><div class="cred-sub">Unified Communications · valid through 2027</div></div>
-                </div>
-                <p class="cred-note">Plus 8 Cisco Specialist certifications spanning Enterprise, Collaboration, and Data Centre, all valid through 2027.</p>
-            </section>
+        <div class="job">
+            <p class="job-title">Technical Lead</p>
+            <p class="job-meta">Sword Group (formerly Ping Network Solutions), Glasgow, Scotland | 2024 - Present</p>
+            <ul>
+                <li>Designed and delivered a resilient, multi-region Cisco ISE, Palo Alto firewall, and Cisco SD-WAN deployment in Azure, establishing zero-trust network access for a critical national infrastructure client</li>
+                <li>Architected a secure Azure-based AI platform to automate network operations workflows, integrating LLM-based tooling with enterprise infrastructure to reduce manual effort and accelerate incident response</li>
+                <li>Manage and mentor a team of 7 consultants, owning resource planning, technical direction, and professional development across concurrent delivery programmes</li>
+                <li>Define solution architecture and set technical standards across projects, ensuring consistency, quality, and alignment with client outcomes</li>
+                <li>Led a multi-datacentre and offshore transformation programme incorporating SD-WAN, Cisco Nexus datacentre switching, and Palo Alto Networks edge security</li>
+                <li>Delivered campus-wide firewall and LAN refresh programmes across multiple Scottish public sector clients including colleges, universities, and government bodies</li>
+                <li>Championed DevOps practices, CI/CD pipelines, infrastructure-as-code, and automated testing to accelerate delivery</li>
+            </ul>
+        </div>
 
-        </aside>
+        <div class="job">
+            <p class="job-title">Consultant Engineer</p>
+            <p class="job-meta">Ping Network Solutions, Glasgow, Scotland | 2019 - 2024</p>
+            <ul>
+                <li>Designed and implemented end-to-end solutions spanning networking, security, and collaboration technologies</li>
+                <li>Led a multi-site migration from legacy BGP/IPsec VPN to a modern Cisco SD-WAN architecture</li>
+                <li>Architected Cisco SD-WAN with an active/active Palo Alto Networks transit hub in Azure, enabling resilient hybrid connectivity</li>
+                <li>Managed the migration of 2,000 users from Cisco CUCM to Microsoft Teams for a major Scottish university</li>
+                <li>Designed and built a bespoke hosted management platform across dual datacentres for an energy sector client</li>
+            </ul>
+        </div>
 
-        <main class="main">
-            <section>
-                <h2>Experience</h2>
+        <div class="job">
+            <p class="job-title">Principal Engineer</p>
+            <p class="job-meta">Virgin Media Business, Glasgow, Scotland | 2015 - 2019</p>
+            <ul>
+                <li>Provided technical leadership and consultation for large public sector accounts</li>
+                <li>Delivered a comprehensive LAN/WAN and datacentre redesign using Cisco Nexus 9K for a national justice sector organisation</li>
+                <li>Led a datacentre refresh incorporating clustered Cisco UCS 5508 compute nodes for a secure public sector estate</li>
+                <li>Designed and implemented a secure video conferencing system for a custodial environment, connecting inmates, solicitors, police, and court personnel</li>
+                <li>Delivered multiple large infrastructure projects including LAN refreshes, firewall migrations, and SIP integrations</li>
+            </ul>
+        </div>
 
-                <div class="job">
-                    <div class="job-head"><span class="job-title">Technical Lead</span><span class="job-dates">2024 - Present</span></div>
-                    <div class="job-co">Sword Group (formerly Ping Network Solutions)</div>
-                    <ul>
-                        <li>Designed and delivered a resilient, multi-region Cisco ISE, Palo Alto firewall, and Cisco SD-WAN deployment in Azure, establishing zero-trust network access for a critical national infrastructure client</li>
-                        <li>Architected a secure Azure-based AI platform to automate network operations workflows, integrating LLM-based tooling with enterprise infrastructure to reduce manual effort and accelerate incident response</li>
-                        <li>Manage and mentor a team of 7 consultants, owning resource planning, technical direction, and professional development across concurrent delivery programmes</li>
-                        <li>Define solution architecture and set technical standards across projects, ensuring consistency, quality, and alignment with client outcomes</li>
-                        <li>Led a multi-datacentre &amp; offshore transformation programme incorporating SD-WAN, Cisco Nexus datacentre switching, and Palo Alto Networks edge security</li>
-                        <li>Delivered campus-wide firewall and LAN refresh programmes across multiple Scottish public sector clients including colleges, universities, and government bodies</li>
-                        <li>Championed DevOps practices, CI/CD pipelines, infrastructure-as-code, and automated testing to accelerate delivery</li>
-                    </ul>
-                </div>
+        <div class="job">
+            <p class="job-title">Senior Network Engineer</p>
+            <p class="job-meta">Jabil | 2007 - 2015</p>
+            <ul>
+                <li>Led a European-wide LAN, WAN, and Cisco telephony refresh across 112 manufacturing sites</li>
+                <li>Delivered two $3M datacentre builds in London and Budapest</li>
+                <li>Served as technical lead for the acquisition integration of a competitor facility in the Netherlands</li>
+            </ul>
+        </div>
 
-                <div class="job">
-                    <div class="job-head"><span class="job-title">Consultant Engineer</span><span class="job-dates">2019 - 2024</span></div>
-                    <div class="job-co">Ping Network Solutions</div>
-                    <ul>
-                        <li>Designed and implemented end-to-end solutions spanning networking, security, and collaboration technologies</li>
-                        <li>Led a multi-site migration from legacy BGP/IPsec VPN to a modern Cisco SD-WAN architecture</li>
-                        <li>Architected Cisco SD-WAN with an active/active Palo Alto Networks transit hub in Azure, enabling resilient hybrid connectivity</li>
-                        <li>Managed the migration of 2,000 users from Cisco CUCM to Microsoft Teams for a major Scottish university</li>
-                        <li>Designed and built a bespoke hosted management platform across dual datacentres for an energy sector client</li>
-                    </ul>
-                </div>
+        <div class="job">
+            <p class="job-title">Network Engineer</p>
+            <p class="job-meta">Jabil | 2003 - 2007</p>
+            <ul>
+                <li>Managed converged data and voice network installations across the European region</li>
+                <li>Designed routing and traffic engineering solutions using BGP and OSPF</li>
+                <li>Delivered VPN, telephony, and wireless solutions across multiple European sites</li>
+            </ul>
+        </div>
 
-                <div class="job">
-                    <div class="job-head"><span class="job-title">Principal Engineer</span><span class="job-dates">2015 - 2019</span></div>
-                    <div class="job-co">Virgin Media Business</div>
-                    <ul>
-                        <li>Provided technical leadership and consultation for large public sector accounts</li>
-                        <li>Delivered a comprehensive LAN/WAN and datacentre redesign using Cisco Nexus 9K for a national justice sector organisation</li>
-                        <li>Led a datacentre refresh incorporating clustered Cisco UCS 5508 compute nodes for a secure public sector estate</li>
-                        <li>Designed and implemented a secure video conferencing system for a custodial environment, connecting inmates, solicitors, police, and court personnel</li>
-                        <li>Delivered multiple large infrastructure projects including LAN refreshes, firewall migrations, and SIP integrations</li>
-                    </ul>
-                </div>
+    </section>
 
-                <div class="job">
-                    <div class="job-head"><span class="job-title">Senior Network Engineer</span><span class="job-dates">2007 - 2015</span></div>
-                    <div class="job-co">Jabil</div>
-                    <ul>
-                        <li>Led a European-wide LAN, WAN, and Cisco telephony refresh across 112 manufacturing sites</li>
-                        <li>Delivered two $3M datacentre builds in London and Budapest</li>
-                        <li>Served as technical lead for the acquisition integration of a competitor facility in the Netherlands</li>
-                    </ul>
-                </div>
-
-                <div class="job">
-                    <div class="job-head"><span class="job-title">Network Engineer</span><span class="job-dates">2003 - 2007</span></div>
-                    <div class="job-co">Jabil</div>
-                    <ul>
-                        <li>Managed converged data and voice network installations across the European region</li>
-                        <li>Designed routing and traffic engineering solutions using BGP and OSPF</li>
-                        <li>Delivered VPN, telephony, and wireless solutions across multiple European sites</li>
-                    </ul>
-                </div>
-
-            </section>
-        </main>
-    </div>
+    <section>
+        <h2>CERTIFICATIONS AND CLEARANCE</h2>
+        <ul>
+            <li>SC Cleared - UK Government Security Clearance</li>
+            <li>CCNP Enterprise - Cisco Certified Network Professional, Routing and Switching (valid through 2027)</li>
+            <li>CCNP Collaboration - Cisco Certified Network Professional, Unified Communications (valid through 2027)</li>
+            <li>8 Cisco Specialist certifications spanning Enterprise, Collaboration, and Data Centre (all valid through 2027)</li>
+        </ul>
+    </section>
 
 </body>
 </html>

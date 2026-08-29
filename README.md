@@ -7,7 +7,7 @@ Personal CV site for Steven Johnston, served at **steven.clydeford.net**.
 | Path | What it is |
 |------|------------|
 | `worker/` | The main Cloudflare Worker (`steven-cv`): serves the site, the persona-aware chatbot (`/api/chat`), the admin panel, and PDF proxying. |
-| `worker-pdf/` | The `steven-cv-pdf` service Worker that renders the CV PDF. |
+| `worker-pdf/` | The `steven-cv-pdf` service Worker that renders the CV PDF in an ATS-friendly format. |
 | `docs/` | Design specs and implementation plans. |
 | `*.txt` | Source snapshots of the site assets. |
 
@@ -33,3 +33,24 @@ npm run deploy   # wrangler deploy
 ### Secrets
 
 Bindings are declared in `worker/wrangler.jsonc`. Secrets (`ADMIN_PASSWORD`, `COOKIE_SECRET`, etc.) and deploy credentials are kept in a local `.env` (gitignored) and as Worker secrets — never committed.
+
+## The `worker-pdf/` service
+
+Renders `src/template.html` to a PDF with headless Chrome and caches it per persona.
+The template is written for applicant tracking systems first: one linear column, no
+fixed page height, standard system fonts, conventional section headings, and no
+images or tables — so the extracted text comes out in reading order. `src/render.js`
+reorders the skills rows in the markup rather than with CSS, keeping what the
+recruiter sees and what the parser reads identical.
+
+Bump `PDF_VERSION` in `src/index.js` (and the `?v=` on the download links in
+`worker/public/index.html`) after editing the template, or the old PDF stays cached.
+
+```bash
+cd worker-pdf
+npm install
+npm test
+npx wrangler deploy
+```
+
+Append `?debug` to the PDF URL to get a full-page PNG of the render instead.
