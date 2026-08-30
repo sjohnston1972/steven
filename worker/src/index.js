@@ -7,7 +7,7 @@ import { resolvePersona } from "./personas.js";
 const ADMIN_PATH = "/manage-7f3q9x";
 
 // Read the active persona from KV, defaulting to generic on any failure.
-// Only called for routes that actually need it (PDF, chat, HTML responses) so
+// Only called for routes that actually need it (chat, HTML responses) so
 // static assets don't each trigger a KV read.
 async function getPersona(env) {
     let id = "generic";
@@ -23,15 +23,6 @@ export default {
 
         if (url.pathname === ADMIN_PATH) {
             return handleAdmin(request, env, ADMIN_PATH);
-        }
-
-        if (url.pathname === "/Steven_Johnston_CV.pdf") {
-            // Forward the active persona to the PDF service via an internal header.
-            const persona = await getPersona(env);
-            const h = new Headers(request.headers);
-            h.set("X-Persona", persona.id);
-            const pdfReq = new Request(request, { headers: h });
-            return env.PDF.fetch(pdfReq);
         }
 
         if (url.pathname === "/api/chat") {
