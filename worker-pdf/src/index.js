@@ -5,7 +5,7 @@ import { applyPersonaToTemplate } from "./render.js";
 import { clientHeaders, cacheHeaders } from "./headers.js";
 
 // Bump to invalidate the cached PDF after editing template.html
-const PDF_VERSION = "9";
+const PDF_VERSION = "10";
 
 export default {
     async fetch(request, env, ctx) {
@@ -31,7 +31,7 @@ export default {
         try {
             const page = await browser.newPage();
             const html = applyPersonaToTemplate(templateHtml, persona);
-            await page.setContent(html, { waitUntil: "networkidle0" });
+            await page.setContent(html, { waitUntil: "load" });
             if (debug) {
                 await page.setViewport({ width: 794, height: 1123 });
                 const shot = await page.screenshot({ fullPage: true });
@@ -40,8 +40,12 @@ export default {
             }
             pdf = await page.pdf({
                 format: "a4",
-                printBackground: true,
+                // The ATS template is black-on-white by design: no background
+                // fills to print, and a tagged PDF gives parsers an explicit
+                // reading order and heading/list structure.
+                printBackground: false,
                 preferCSSPageSize: true,
+                tagged: true,
             });
         } finally {
             await browser.close();

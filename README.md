@@ -7,7 +7,7 @@ Personal CV site for Steven Johnston, served at **steven.clydeford.net**.
 | Path | What it is |
 |------|------------|
 | `worker/` | The main Cloudflare Worker (`steven-cv`): serves the site, the persona-aware chatbot (`/api/chat`), and the admin panel. |
-| `worker-pdf/` | The `steven-cv-pdf` service Worker that used to render the CV PDF. **No longer wired up** — the CV is now a static asset at `worker/public/Steven_Johnston_CV.pdf`. Kept for reference; the deployed Worker has not been removed. |
+| `worker-pdf/` | The `steven-cv-pdf` service Worker that used to render the CV PDF in an ATS-friendly format. **No longer wired up** — the CV is now a static asset at `worker/public/Steven_Johnston_CV.pdf`. Kept for reference; the deployed Worker has not been removed. |
 | `docs/` | Design specs and implementation plans. |
 | `*.txt` | Source snapshots of the site assets. |
 
@@ -33,3 +33,29 @@ npm run deploy   # wrangler deploy
 ### Secrets
 
 Bindings are declared in `worker/wrangler.jsonc`. Secrets (`ADMIN_PASSWORD`, `COOKIE_SECRET`, etc.) and deploy credentials are kept in a local `.env` (gitignored) and as Worker secrets — never committed.
+
+## The `worker-pdf/` service (retired)
+
+**Not wired up.** `worker/` no longer proxies `/Steven_Johnston_CV.pdf` to this
+service — the CV is a static file in `worker/public/`. The code and its tests are
+kept here for reference, and the deployed `steven-cv-pdf` Worker has not been
+deleted from the account. Nothing below takes effect unless it is reconnected.
+
+Renders `src/template.html` to a PDF with headless Chrome and caches it per persona.
+The template is written for applicant tracking systems first: one linear column, no
+fixed page height, standard system fonts, conventional section headings, and no
+images or tables — so the extracted text comes out in reading order. `src/render.js`
+reorders the skills rows in the markup rather than with CSS, keeping what the
+recruiter sees and what the parser reads identical.
+
+Bump `PDF_VERSION` in `src/index.js` (and the `?v=` on the download links in
+`worker/public/index.html`) after editing the template, or the old PDF stays cached.
+
+```bash
+cd worker-pdf
+npm install
+npm test
+npx wrangler deploy
+```
+
+Append `?debug` to the PDF URL to get a full-page PNG of the render instead.
