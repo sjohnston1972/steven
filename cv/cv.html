@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<title>Steven Johnston — Technical Lead &amp; Solutions Architect</title>
+<style>
+    /* Palette sampled from the original PDF this file reconstructs, so a
+       re-render matches the document already in circulation.
+         band   #1B212F   gold   #C8A226   slate  #596578
+         ink    #24292E   role   #CFD5E3   contact #AEB8CC          */
+
+    /* Chrome clips to the page margin box, so a negative margin cannot bleed
+       a full-width band to the trim — the top and side page margins have to
+       be zero and the insets done with padding instead (measured, not
+       assumed). That is how the original got its masthead, and also why its
+       page 2 opened hard against the top edge: with a zero top margin there
+       was nothing holding the continuation off the trim.
+       Chrome also applies ONE margin box to every page and ignores per-page
+       overrides (@page :first margin-top does nothing), so the page-2 white
+       space goes into the flow instead: see .starts-page. The bottom margin
+       stays real so text never runs off the foot of a page.
+       The vertical rhythm below is tuned so page 1 ends just after the
+       Technical Lead role: with a zero top margin there is ~6mm of slack,
+       so adding more than a couple of lines to page 1 will push the whole
+       role onto page 2 (it is break-inside: avoid). render.sh fails if the
+       document stops being exactly two pages. */
+    @page { size: A4; margin: 0 0 13mm; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+        font-size: 9pt;
+        line-height: 1.45;
+        color: #24292E;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Masthead ─────────────────────────────────────────────────
+       Negative margins cancel the page margin so the dark band bleeds
+       to the trim; the padding puts the text back on the text column. */
+    .masthead {
+        background: #1B212F;
+        padding: 9.5mm 14mm 5.5mm;
+        color: #FFFFFF;
+    }
+
+    /* Everything below the band carries its own side insets, since the page
+       box no longer provides them. */
+    .body { padding: 0 14mm; }
+    .name {
+        font-size: 25pt;
+        font-weight: 700;
+        letter-spacing: -0.3px;
+        line-height: 1.05;
+    }
+    .name em { font-style: normal; color: #C8A226; }
+    .role {
+        margin-top: 2.6mm;
+        font-size: 9.5pt;
+        font-weight: 600;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #CFD5E3;
+    }
+    .contact {
+        margin-top: 3mm;
+        font-size: 8.3pt;
+        color: #AEB8CC;
+    }
+    .contact .sep { padding: 0 1.4mm; opacity: 0.65; }
+    .badges { margin-top: 3.6mm; display: flex; gap: 3mm; }
+    .badge {
+        border: 0.7pt solid #C8A226;
+        border-radius: 999px;
+        padding: 1mm 3.2mm;
+        color: #C8A226;
+        font-size: 7.4pt;
+        font-weight: 600;
+        letter-spacing: 1.6px;
+        text-transform: uppercase;
+    }
+
+    /* ── Sections ─────────────────────────────────────────────────── */
+    section { margin-top: 5mm; }
+
+    h2 {
+        font-size: 9pt;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #1B212F;
+        border-bottom: 0.7pt solid #C8A226;
+        padding-bottom: 1.6mm;
+        margin-bottom: 3mm;
+    }
+
+    p + p { margin-top: 2.4mm; }
+
+    /* ── Key skills: two columns, filled row-major ────────────────── */
+    .skills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 9mm;
+        row-gap: 2.6mm;
+    }
+    .skill { break-inside: avoid; }
+    .skill b { font-weight: 600; color: #1B212F; }
+
+    /* ── Experience ───────────────────────────────────────────────── */
+    .job { margin-top: 4.2mm; break-inside: avoid; }
+    .job:first-of-type { margin-top: 0; }
+    /* Breaks page 2 where it already fell naturally, then opens it with a
+       band of white space so the continuation doesn't start hard against
+       the trim the way the previous version did. */
+    .job.starts-page { break-before: page; padding-top: 20mm; }
+    .job-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 6mm;
+    }
+    .job-title { font-size: 10.5pt; font-weight: 700; color: #1B212F; }
+    .job-dates { font-size: 8.6pt; font-weight: 600; color: #C8A226; white-space: nowrap; }
+    .job-co { font-size: 8.8pt; color: #596578; margin-top: 0.4mm; }
+
+    ul { list-style: none; margin-top: 1.6mm; }
+    li {
+        position: relative;
+        padding-left: 4.2mm;
+        margin-bottom: 1.2mm;
+        break-inside: avoid;
+    }
+    li b { font-weight: 600; color: #1B212F; }
+    li::before {
+        content: "";
+        position: absolute;
+        left: 0.6mm;
+        top: 1.6mm;
+        width: 1.3mm;
+        height: 1.3mm;
+        border-radius: 50%;
+        background: #C8A226;
+    }
+
+    /* ── Certifications ───────────────────────────────────────────── */
+    .certs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 9mm;
+        row-gap: 3.4mm;
+    }
+    .cert { break-inside: avoid; }
+    .cert-name { font-weight: 600; color: #1B212F; }
+    .cert-sub  { font-size: 8.6pt; color: #596578; margin-top: 0.4mm; }
+
+    /* ── Portfolio ────────────────────────────────────────────────── */
+    .portfolio b { font-weight: 600; color: #1B212F; }
+</style>
+</head>
+<body>
+
+    <header class="masthead">
+        <div class="name">Steven <em>Johnston</em></div>
+        <div class="role">Technical Lead &amp; Solutions Architect</div>
+        <div class="contact">Glasgow, Scotland<span class="sep">·</span><a href="mailto:stevie.johnston@gmail.com">stevie.johnston@gmail.com</a><span class="sep">·</span><a href="https://www.linkedin.com/in/steven-johnston-474a5333/">linkedin.com/in/steven-johnston-474a5333</a><span class="sep">·</span><a href="https://steven.clydeford.net">steven.clydeford.net</a></div>
+        <div class="badges">
+            <span class="badge">SC Cleared</span>
+            <span class="badge">CCNP Enterprise</span>
+            <span class="badge">CCNP Collaboration</span>
+        </div>
+    </header>
+
+    <main class="body">
+
+    <section>
+        <h2>Profile</h2>
+        <p>Technical leader designing and delivering secure, enterprise-scale infrastructure for public sector and critical national infrastructure clients. I operate at lead architect level: owning end-to-end architecture, setting technical standards and governance across concurrent programmes, and seeing complex multi-vendor deployments through from first principles to production.</p>
+        <p>My expertise spans networking, security, cloud and AI-driven automation. I have led zero trust and Secure by Design implementations for critical national infrastructure, architected cloud platforms that bring agentic AI into infrastructure operations, and championed DevOps adoption (CI/CD, infrastructure as code and automated testing) across delivery teams. I currently manage and mentor a team of seven consultants, balancing immediate delivery needs against long-term scalability, security and maintainability, and translating complex technical decisions for stakeholders from engineers to executive boards.</p>
+    </section>
+
+    <section>
+        <h2>Key Skills</h2>
+        <div class="skills">
+            <div class="skill"><b>Architecture &amp; Strategy:</b> Enterprise and solution architecture, technical strategy and roadmaps, design governance and assurance, high-level and low-level design, standards definition, design authority</div>
+            <div class="skill"><b>Security &amp; Secure by Design:</b> Zero trust architecture, secure access service edge (SASE), identity-based network access control, next-generation firewalls, secure remote access</div>
+            <div class="skill"><b>Cloud &amp; Hybrid:</b> Public cloud networking and security (Azure), hybrid connectivity, transit hub architectures, multi-region resilient design</div>
+            <div class="skill"><b>Networking:</b> Enterprise WAN and software-defined WAN, campus and datacentre networks, routing and traffic engineering</div>
+            <div class="skill"><b>AI &amp; Automation:</b> Agentic AI for IT operations, large language model integration, Python, infrastructure as code</div>
+            <div class="skill"><b>DevOps &amp; Delivery:</b> CI/CD pipelines, automated testing, agile delivery across concurrent programmes</div>
+            <div class="skill"><b>Leadership:</b> Team leadership and mentoring, programme delivery, supplier and stakeholder management, executive communication</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Experience</h2>
+
+        <div class="job">
+            <div class="job-head"><span class="job-title">Technical Lead</span><span class="job-dates">2024 – Present</span></div>
+            <div class="job-co">Sword Group (formerly Ping Network Solutions)</div>
+            <ul>
+                <li>Designed and delivered a resilient, multi-region zero trust network and security architecture in the public cloud for a <b>critical national infrastructure client</b>, spanning identity-based access control, next-generation firewalls and software-defined WAN</li>
+                <li>Architected a secure cloud-based AI platform to automate network operations workflows, integrating large language model tooling with enterprise infrastructure to reduce manual effort and accelerate incident response</li>
+                <li>Define solution architecture and set technical standards across concurrent projects, ensuring consistency, quality and alignment with client outcomes through design reviews and architectural governance</li>
+                <li>Manage and mentor a team of 7 consultants, owning resource planning, technical direction and professional development across concurrent delivery programmes</li>
+                <li>Led a multi-datacentre and offshore transformation programme, modernising wide area networking, datacentre switching and edge security</li>
+                <li>Delivered campus-wide security and network refresh programmes across multiple Scottish public sector clients, including colleges, universities and government bodies, coordinating third-party suppliers throughout</li>
+                <li>Championed DevOps practices (CI/CD pipelines, infrastructure as code and automated testing) to accelerate and de-risk delivery</li>
+            </ul>
+        </div>
+
+        <div class="job starts-page">
+            <div class="job-head"><span class="job-title">Consultant Engineer</span><span class="job-dates">2019 – 2024</span></div>
+            <div class="job-co">Ping Network Solutions</div>
+            <ul>
+                <li>Designed and implemented end-to-end solutions spanning networking, security and collaboration technologies for enterprise and public sector clients</li>
+                <li>Led a multi-site migration from a legacy VPN estate to a modern software-defined WAN architecture</li>
+                <li>Architected resilient hybrid cloud connectivity built around an active/active security transit hub in the public cloud</li>
+                <li>Managed the migration of 2,000 users from on-premises telephony to a cloud collaboration platform for a major Scottish university</li>
+                <li>Designed and built a bespoke hosted management platform across dual datacentres for an energy sector client</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-head"><span class="job-title">Principal Engineer</span><span class="job-dates">2015 – 2019</span></div>
+            <div class="job-co">Virgin Media Business</div>
+            <ul>
+                <li>Provided technical leadership and consultation for large public sector accounts</li>
+                <li>Delivered a comprehensive network and datacentre redesign for a national justice sector organisation</li>
+                <li>Led a datacentre compute and infrastructure refresh for a secure public sector estate</li>
+                <li>Designed and implemented a secure video conferencing system for a custodial environment, connecting inmates, solicitors, police and court personnel</li>
+                <li>Delivered multiple large infrastructure projects including network refreshes, firewall migrations and voice integrations</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-head"><span class="job-title">Senior Network Engineer</span><span class="job-dates">2007 – 2015</span></div>
+            <div class="job-co">Jabil</div>
+            <ul>
+                <li>Led a European-wide network and telephony refresh across 112 manufacturing sites</li>
+                <li>Delivered two $3M datacentre builds in London and Budapest</li>
+                <li>Served as technical lead for the acquisition integration of a competitor facility in the Netherlands</li>
+            </ul>
+        </div>
+
+        <div class="job">
+            <div class="job-head"><span class="job-title">Network Engineer</span><span class="job-dates">2003 – 2007</span></div>
+            <div class="job-co">Jabil</div>
+            <ul>
+                <li>Managed converged data and voice network installations across the European region</li>
+                <li>Designed routing and traffic engineering solutions for international networks</li>
+                <li>Delivered VPN, telephony and wireless solutions across multiple European sites</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <section>
+        <h2>Certifications &amp; Clearance</h2>
+        <div class="certs">
+            <div class="cert">
+                <div class="cert-name">SC Cleared</div>
+                <div class="cert-sub">UK Government Security Clearance (current)</div>
+            </div>
+            <div class="cert">
+                <div class="cert-name">CCNP Enterprise</div>
+                <div class="cert-sub">Routing &amp; Switching · valid through 2027</div>
+            </div>
+            <div class="cert">
+                <div class="cert-name">CCNP Collaboration</div>
+                <div class="cert-sub">Unified Communications · valid through 2027</div>
+            </div>
+            <div class="cert">
+                <div class="cert-name">Cisco Specialist Certifications</div>
+                <div class="cert-sub">Multiple · valid through 2027</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio">
+        <h2>Portfolio</h2>
+        <p><b>AI tools &amp; agentic workflows:</b> <a href="https://tools.clydeford.net">tools.clydeford.net</a>, a working collection of AI tools and agents exploring agentic workflows and LLM integration with infrastructure operations</p>
+    </section>
+
+    </main>
+
+</body>
+</html>
