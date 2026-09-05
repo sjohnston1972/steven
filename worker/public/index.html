@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Steven Johnston — Technical Lead</title>
-    <meta name="description" content="Technical Lead in Glasgow. I move live enterprise estates onto new platforms without breaking them: networking, security, identity, cloud, datacentre and OT.">
+    <meta name="description" content="Steven Johnston, Technical Lead in Glasgow. Technical design and delivery of enterprise infrastructure: networking, security, identity, cloud, datacentre and operational technology.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,600;62..125,700;62..125,800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=17">
+    <link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body class="light">
 
@@ -16,8 +16,6 @@
     <div class="nav-inner">
         <a href="#top" class="nav-mark">SJ</a>
         <div class="nav-links">
-            <a href="#work">Work</a>
-            <a href="#method">Method</a>
             <a href="#about">Capability</a>
             <a href="#career">Career</a>
             <a href="#tools">Tools</a>
@@ -32,8 +30,6 @@
         </button>
     </div>
     <div class="nav-mobile" id="navMobile">
-        <a href="#work">Work</a>
-        <a href="#method">Method</a>
         <a href="#about">Capability</a>
         <a href="#career">Career</a>
         <a href="#tools">Tools</a>
@@ -46,192 +42,12 @@
         <p class="hero-eyebrow">Technical Lead &nbsp;·&nbsp; Glasgow, Scotland</p>
         <h1 class="hero-name"><span>Steven</span><span class="surname">Johnston</span></h1>
         <div class="hero-rule"></div>
-        <div class="hero-lower">
-        <div>
-        <p class="hero-tagline">I move live enterprise estates onto new platforms without breaking them.</p>
-        <p class="hero-sub">Twenty-two programmes since 2018 across energy, critical national infrastructure, education and the public sector. None of them could afford to go down.</p>
-        </div>
-
-        <div class="cut" id="cut" data-state="built">
-            <div class="cut-switch" role="group" aria-label="Show the estate as found or as built">
-                <button type="button" class="cut-btn" data-state="found" aria-pressed="false" aria-controls="cutFound">
-                    <span class="dot" aria-hidden="true"></span>As found
-                </button>
-                <button type="button" class="cut-btn" data-state="built" aria-pressed="true" aria-controls="cutBuilt">
-                    <span class="dot" aria-hidden="true"></span>As built
-                </button>
-            </div>
-
-            <div class="cut-panel">
-                <div class="cut-state" id="cutFound" hidden>
-                    <p>A flat network with one core and no way to fail over. Six hundred remote sites terminating on a single cabinet. A firewall rule base of any-to-any policies nobody wanted to touch. An end-of-life core holding up everything behind it.</p>
-                    <p>This is what I am usually handed.</p>
-                </div>
-                <div class="cut-state on" id="cutBuilt">
-                    <p>Segmented and centrally managed. Redundancy that survives losing a site, not just an appliance. A rule base tightened on the way past rather than copied across. Operational technology separated from corporate IT.</p>
-                    <p>Built and proven alongside the old estate before anything moved.</p>
-                </div>
-            </div>
-
-            <p class="cut-note">No outage. A documented rollback at every step.</p>
-        </div>
-        </div>
+        <p class="hero-tagline">Technical design and delivery of enterprise infrastructure: networking, security, identity, cloud, datacentre and operational technology.</p>
+        <p class="hero-sub">Twenty-two programmes since 2018 across energy, critical national infrastructure, education and the public sector.</p>
     </div>
 </header>
 
 <main>
-
-<section class="section" id="work">
-    <div class="shell">
-        <div class="section-head">
-            <h2 class="section-title">Selected work</h2>
-            <p class="section-intro">Twenty-two design and delivery programmes since 2018. Client names are confidential, so these are described by sector. Every one of them was a live estate.</p>
-        </div>
-
-        <div class="work-list">
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">600 sites</p>
-                    <p class="work-meta">Facilities management<br>2024</p>
-                </div>
-                <div>
-                    <h3 class="work-title">Geographic redundancy for a VPN concentrator estate</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>A resilient firewall pair in one cabinet, terminating VPNs from over 600 remote sites. Protected against an appliance failure, not against losing the site.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>Split the pair, moved the spare to a second datacentre, and replaced the static route with OSPF in a VRF so failed routes actually withdraw. Pushed the change to every branch by API.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>Failover that works when a whole site goes, not just a box.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">1 petabyte</p>
-                    <p class="work-meta">Oil and gas<br>2024 – 2026</p>
-                </div>
-                <div>
-                    <h3 class="work-title">Greenfield dual datacentre for an M&amp;A asset transition</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>An acquisition completing to a fixed day-one date, with no infrastructure to receive it and a petabyte of seismic data arriving on physical media.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>Two resilient colocation datacentres: 25/100G fabric, hyper-converged compute, a six-site SD-WAN replacing legacy MPLS, and an operational technology zone isolated from corporate IT.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>The platform the transferring assets, staff and sites landed on.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">500 devices</p>
-                    <p class="work-meta">Gas transmission<br>Critical national infrastructure · 2026</p>
-                </div>
-                <div>
-                    <h3 class="work-title">Cloud-hosted identity for device administration</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>Administrative access to a national network spread across local accounts, with regulatory pressure to prove who did what.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>A two-region identity platform reached over private connectivity, with cloud single sign-on for the console and directory-backed device administration, graded command sets and a default deny.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>Every administrative login authenticated, authorised and audited.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">2 campuses</p>
-                    <p class="work-meta">Further education<br>2023</p>
-                </div>
-                <div>
-                    <h3 class="work-title">Cross-vendor firewall migration</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>A firewall estate reaching licence expiry, and an inherited rule base full of any-to-any zone policies.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>Ran the incoming platform live beside the outgoing one on temporary addressing, proving every interface before the window, then took the real addressing on the day. Tightened the policy to actual source and destination zones instead of copying it.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>The estate came out of the migration more secure than it went in.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">2,000 users</p>
-                    <p class="work-meta">Higher education<br>2022</p>
-                </div>
-                <div>
-                    <h3 class="work-title">On-premises telephony to Microsoft Teams</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>A university running Teams for everything except calls, and a call platform it could not simply switch off.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>Direct routing through session border elements as the boundary between the two, so both estates could call each other and the outside world throughout. Migrating a user became a partition change.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>2,000 users moved at their own pace. No cutover night.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">Multi-tenant</p>
-                    <p class="work-meta">Electricity distribution<br>Critical national infrastructure · 2019</p>
-                </div>
-                <div>
-                    <h3 class="work-title">Secure monitoring and privileged access platform</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>A global systems integrator needing to monitor and reach a utility's new DMZ estate, without either party's network touching the other's.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>Per-customer network isolation end to end, extended between two datacentres, with third-party engineers reaching the estate only through multi-factor VPN, a bastion host and a named list of protocols.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>Third-party access to critical infrastructure that is controlled and auditable by design.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-            <article class="work">
-                <div>
-                    <p class="work-metric">112 sites</p>
-                    <p class="work-meta">Manufacturing, Europe-wide<br>Earlier career</p>
-                </div>
-                <div>
-                    <h3 class="work-title">European network and telephony refresh</h3>
-                    <dl class="work-steps">
-                        <div class="work-step"><dt>Found</dt><dd>An ageing, inconsistent estate across 112 manufacturing sites in multiple countries.</dd></div>
-                        <div class="work-step"><dt>Did</dt><dd>Led the LAN, WAN and telephony refresh across all of them, alongside two datacentre builds and the network integration of an acquired competitor facility.</dd></div>
-                        <div class="work-step is-result"><dt>Result</dt><dd>Where the method came from: at 112 sites you only get to learn a lesson once.</dd></div>
-                    </dl>
-                </div>
-            </article>
-
-        </div>
-    </div>
-</section>
-
-<section class="section" id="method">
-    <div class="shell">
-        <div class="section-head">
-            <h2 class="section-title">How I migrate a live estate</h2>
-            <p class="section-intro">The same four steps on every programme since 2018, whatever the vendor. My training is in engineering rather than IT, in disciplines where the process and the documentation are the deliverable, and this is what that turned into.</p>
-        </div>
-
-        <div class="method">
-            <div class="step">
-                <p class="step-n">Step 1</p>
-                <h3>Build alongside</h3>
-                <p>The new platform goes in live, next to the old one, on temporary addressing. Nothing is decommissioned to make room for it.</p>
-            </div>
-            <div class="step">
-                <p class="step-n">Step 2</p>
-                <h3>Prove before the window</h3>
-                <p>Every interface tested while there is still time to fix it. Faulty optics, duplex mismatches and bad patching surface in daylight, not at 2am.</p>
-            </div>
-            <div class="step">
-                <p class="step-n">Step 3</p>
-                <h3>Cut over small</h3>
-                <p>The change itself is the smallest possible act: move the addressing, enable an interface, move an extension into a different partition.</p>
-            </div>
-            <div class="step">
-                <p class="step-n">Step 4</p>
-                <h3>Verify, then hold</h3>
-                <p>A documented rollback at every step, with the test that proves it worked. The old kit stays powered off for a while before it goes.</p>
-            </div>
-        </div>
-
-        <p class="method-coda">Migrate one first. Watch it. Write down what surprised you. <b>Then repeat the procedure you have just proved</b> for the remaining ninety-nine.</p>
-    </div>
-</section>
 
 <section class="section" id="about">
     <div class="shell">
@@ -412,7 +228,6 @@
                 <a class="btn" href="https://www.linkedin.com/in/steven-johnston-474a5333/" target="_blank" rel="noopener">LinkedIn</a>
                 <a class="btn" href="Steven_Johnston_CV.pdf?v=13" download>Download CV</a>
             </div>
-            <p class="avail">In post as Technical Lead at Sword Group and open to hearing about the right opportunity. One month's notice, remote-first, based in Glasgow. SC cleared.</p>
         </div>
     </div>
 </section>
@@ -423,7 +238,7 @@
     <div class="shell">Steven Johnston · Glasgow · Built on Cloudflare Workers. The assistant runs on Workers AI.</div>
 </footer>
 
-<script src="main.js?v=16"></script>
-<script src="chat.js?v=15"></script>
+<script src="main.js?v=18"></script>
+<script src="chat.js?v=18"></script>
 </body>
 </html>

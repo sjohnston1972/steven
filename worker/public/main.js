@@ -58,29 +58,4 @@
         });
     }
 
-    /* ── The cutover switch ─────────────────────────────────────
-       The one interactive idea on the page: it shows an estate as found and
-       as built. Both panels exist in the markup, so with JS off the visitor
-       still gets the "as built" copy rather than an empty box. */
-    var cut = document.getElementById("cut");
-    if (cut) {
-        var buttons = cut.querySelectorAll(".cut-btn");
-        var panels = cut.querySelectorAll(".cut-state");
-
-        var show = function (state) {
-            cut.setAttribute("data-state", state);
-            buttons.forEach(function (b) {
-                b.setAttribute("aria-pressed", String(b.getAttribute("data-state") === state));
-            });
-            panels.forEach(function (p) {
-                var on = p.id === (state === "found" ? "cutFound" : "cutBuilt");
-                p.classList.toggle("on", on);
-                p.hidden = !on;
-            });
-        };
-
-        buttons.forEach(function (b) {
-            b.addEventListener("click", function () { show(b.getAttribute("data-state")); });
-        });
-    }
 })();
