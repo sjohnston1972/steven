@@ -7,9 +7,9 @@ describe("personas", () => {
         expect(PERSONAS.generic.default).toBe(true);
     });
 
-    it("defines all eight personas", () => {
+    it("defines all ten personas", () => {
         expect(Object.keys(PERSONAS).sort()).toEqual(
-            ["ai", "cloud", "collaboration", "datacentre", "generic", "networking", "security", "techlead"].sort()
+            ["ai", "cloud", "collaboration", "datacentre", "generic", "identity", "networking", "ot", "security", "techlead"].sort()
         );
     });
 

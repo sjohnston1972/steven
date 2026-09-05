@@ -55,6 +55,22 @@ export const PERSONAS = {
         chatbotFocus: "Foreground the Datacentre discipline: greenfield colocation builds, end-of-life core replacement, Nexus with vPC and Catalyst with StackWise Virtual, Nutanix and PowerScale and Cohesity platforms, and petabyte-scale storage design.",
     },
 
+    identity: {
+        id: "identity", label: "Identity", skill: "identity",
+        eyebrow: "Identity &amp; Access Architect &nbsp;·&nbsp; Glasgow, Scotland",
+        tagline: "Designing network access control and device administration that is centrally authenticated, authorised and audited, on premises and in the cloud.",
+        aboutLead: "I design identity and access for enterprise infrastructure: network access control, device administration, multi-factor authentication and the certificate infrastructure underneath them. Four separate Cisco ISE deployments, from a two-site cluster retiring a legacy access control estate to a cloud-hosted platform covering 500 devices on a national network.",
+        chatbotFocus: "Foreground the Identity and access discipline: four Cisco ISE engagements, TACACS+ device administration, RADIUS, Entra ID and SAML single sign-on, Duo multi-factor authentication, PKI and certificate lifecycle including OCSP, and pxGrid-driven firewall policy.",
+    },
+
+    ot: {
+        id: "ot", label: "OT / Industrial", skill: "ot",
+        eyebrow: "OT &amp; Industrial Network Architect &nbsp;·&nbsp; Glasgow, Scotland",
+        tagline: "Separating operational technology from corporate IT, so an IT-originated compromise cannot reach safety-critical industrial systems.",
+        aboutLead: "I design and secure operational technology environments for industrial and energy estates, keeping them isolated from corporate IT by zero-trust segmentation and controlled data-exchange gateways, with audit logging and protocol-level restriction so lateral movement is governed rather than assumed. Delivered alongside the corporate infrastructure, for clients including critical national infrastructure operators.",
+        chatbotFocus: "Foreground the operational technology and industrial work: a dedicated OT environment with its own core, firewalls, compute and backup isolated from corporate IT; controlled IT-to-OT data-exchange gateways; IoT, CCTV and building-services segmentation; and secure third-party access into critical national infrastructure estates.",
+    },
+
     networking: {
         id: "networking", label: "Networking", skill: "networking",
         eyebrow: "Network Architect &nbsp;·&nbsp; Glasgow, Scotland",
