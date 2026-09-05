@@ -8,9 +8,9 @@
     const MAX_INPUT = 600;
     const GREETING = "Hi — I can answer questions about Steven's experience, skills, and background. What would you like to know?";
     const CHIPS = [
-        "What does Steven do day to day?",
-        "What's his cloud experience?",
-        "Tell me about his AI work",
+        "What AI tools has he built?",
+        "What's his security experience?",
+        "Is Steven available for work?",
     ];
 
     const root = document.createElement("div");

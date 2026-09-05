@@ -12,7 +12,7 @@ export const PERSONAS = {
         eyebrow: "Network Security Engineer &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Securing enterprise networks across on-premise, cloud, and hybrid. Zero Trust, segmentation, and Azure network security.",
         aboutLead: "I design and secure enterprise network infrastructure across on-premise, cloud, and hybrid environments, covering next-generation firewalls, segmentation, Zero Trust access, and Azure network security. I take secure connectivity from first principles through to production for enterprise and public sector clients, including critical national infrastructure.",
-        chatbotFocus: "Foreground Steven's network security and Azure security work: next-generation firewalls (Palo Alto, Cisco, Fortinet), Cisco ISE and ZTNA, SASE, network segmentation, and secure hybrid connectivity. Frame answers around securing enterprise networks.",
+        chatbotFocus: "Foreground the Security discipline: cross-vendor firewall migration, next-generation firewall design, rule-base rationalisation, inherited-estate audit, DNS-layer security and IT/OT segmentation. Name the tooling he built for it, Gladius and VIGIL. Frame answers around securing enterprise networks.",
     },
 
     cloud: {
@@ -20,7 +20,7 @@ export const PERSONAS = {
         eyebrow: "Cloud Network Architect &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Designing secure, resilient Azure networking, including Virtual WAN, ExpressRoute, transit hubs, and hybrid connectivity at enterprise scale.",
         aboutLead: "I design and deliver secure Azure cloud networking for enterprise and public sector clients, covering Virtual WAN, ExpressRoute, transit-hub architectures, NVA firewalls, and resilient hybrid connectivity, taken from design through to production.",
-        chatbotFocus: "Foreground Steven's Azure and hybrid cloud networking: Azure Virtual WAN, ExpressRoute, transit hubs, NVA firewalls, multi-region design, and secure hybrid connectivity.",
+        chatbotFocus: "Foreground the Cloud and hybrid discipline: Azure transit hub and Virtual WAN design, ExpressRoute, NVA and platform firewalls, datacentre exit into Azure, and identity platforms hosted in Azure. Name CloudForge and his Terraform modules.",
     },
 
     ai: {
@@ -28,7 +28,7 @@ export const PERSONAS = {
         eyebrow: "AI Automation Architect &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Bringing agentic AI into infrastructure operations, building automation platforms that cut manual effort and accelerate incident response.",
         aboutLead: "For the past two years I've focused on bringing agentic AI into infrastructure operations, designing and deploying automation platforms that integrate LLM-based tooling with enterprise infrastructure to cut manual effort, speed up delivery, and accelerate incident response.",
-        chatbotFocus: "Foreground Steven's agentic AI and automation work: LLM-based tooling, AI ops platforms, agentic network automation, and incident automation built on secure Azure infrastructure.",
+        chatbotFocus: "Foreground the Automation and AI discipline, and the link back to delivery work: the tools grew out of doing firewall migration, config templating and API-driven change by hand. Name specific tools, Gladius, Parity, Archie, ShellMate, CloudForge, Webex Migrate, and the human-in-the-loop principle.",
     },
 
     techlead: {
@@ -36,7 +36,7 @@ export const PERSONAS = {
         eyebrow: "Technical Lead &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Leading the architecture and delivery of complex enterprise infrastructure, setting standards and mentoring teams from concept to production.",
         aboutLead: "I lead the technical design and delivery of infrastructure programmes for enterprise and public sector clients, owning architecture, setting technical standards across concurrent programmes, mentoring a team of engineers, and seeing complex multi-vendor deployments through to production.",
-        chatbotFocus: "Foreground Steven's technical leadership: leading a team of 7 consultants, programme delivery, solution architecture, setting technical standards, mentoring, and resource planning.",
+        chatbotFocus: "Foreground technical leadership: leading a team of 7 consultants, solution architecture and technical standards across concurrent programmes, design authority over inherited estates, and his signature migration methodology of building alongside, proving before the window and documenting rollback at every step.",
     },
 
     collaboration: {
@@ -44,7 +44,7 @@ export const PERSONAS = {
         eyebrow: "Collaboration Architect &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Designing enterprise voice and collaboration with Cisco CUCM, Webex, Microsoft Teams, SIP/CUBE, and unified communications at scale.",
         aboutLead: "I design and deliver enterprise collaboration and voice solutions, covering Cisco CUCM and Webex, large-scale Microsoft Teams migrations, SIP and CUBE integration, and secure unified communications for enterprise and public sector clients.",
-        chatbotFocus: "Foreground Steven's collaboration and voice work: Cisco CUCM and Webex, Microsoft Teams migrations, SIP and CUBE integration, enterprise voice, and secure video conferencing.",
+        chatbotFocus: "Foreground the Collaboration discipline: TDM to SIP migration with number retention, Webex Calling and Microsoft Teams Direct Routing with on-premises coexistence, CUBE session border element engineering, and dial plan design. Name Webex Migrate.",
     },
 
     datacentre: {
@@ -52,7 +52,23 @@ export const PERSONAS = {
         eyebrow: "Datacentre Architect &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Designing and transforming datacentres with Cisco Nexus and UCS, VMware and Nutanix, and multi-DC builds and migrations.",
         aboutLead: "I design, build, and transform datacentre infrastructure, covering Cisco Nexus switching and UCS compute, VMware and Nutanix, and delivering multi-datacentre builds and migrations for enterprise and public sector clients.",
-        chatbotFocus: "Foreground Steven's datacentre work: Cisco Nexus and UCS, VMware and Nutanix, DC design and architecture, multi-datacentre transformation, and large datacentre builds.",
+        chatbotFocus: "Foreground the Datacentre discipline: greenfield colocation builds, end-of-life core replacement, Nexus with vPC and Catalyst with StackWise Virtual, Nutanix and PowerScale and Cohesity platforms, and petabyte-scale storage design.",
+    },
+
+    identity: {
+        id: "identity", label: "Identity", skill: "identity",
+        eyebrow: "Identity &amp; Access Architect &nbsp;·&nbsp; Glasgow, Scotland",
+        tagline: "Designing network access control and device administration that is centrally authenticated, authorised and audited, on premises and in the cloud.",
+        aboutLead: "I design identity and access for enterprise infrastructure: network access control, device administration, multi-factor authentication and the certificate infrastructure underneath them. Four separate Cisco ISE deployments, from a two-site cluster retiring a legacy access control estate to a cloud-hosted platform covering 500 devices on a national network.",
+        chatbotFocus: "Foreground the Identity and access discipline: four Cisco ISE engagements, TACACS+ device administration, RADIUS, Entra ID and SAML single sign-on, Duo multi-factor authentication, PKI and certificate lifecycle including OCSP, and pxGrid-driven firewall policy.",
+    },
+
+    ot: {
+        id: "ot", label: "OT / Industrial", skill: "ot",
+        eyebrow: "OT &amp; Industrial Network Architect &nbsp;·&nbsp; Glasgow, Scotland",
+        tagline: "Separating operational technology from corporate IT, so an IT-originated compromise cannot reach safety-critical industrial systems.",
+        aboutLead: "I design and secure operational technology environments for industrial and energy estates, keeping them isolated from corporate IT by zero-trust segmentation and controlled data-exchange gateways, with audit logging and protocol-level restriction so lateral movement is governed rather than assumed. Delivered alongside the corporate infrastructure, for clients including critical national infrastructure operators.",
+        chatbotFocus: "Foreground the operational technology and industrial work: a dedicated OT environment with its own core, firewalls, compute and backup isolated from corporate IT; controlled IT-to-OT data-exchange gateways; IoT, CCTV and building-services segmentation; and secure third-party access into critical national infrastructure estates.",
     },
 
     networking: {
@@ -60,7 +76,7 @@ export const PERSONAS = {
         eyebrow: "Network Architect &nbsp;·&nbsp; Glasgow, Scotland",
         tagline: "Architecting enterprise networks across BGP/OSPF, SD-WAN, campus LAN/WAN, and resilient multi-site connectivity from design to production.",
         aboutLead: "I architect and deliver enterprise networks, covering BGP and OSPF routing, SD-WAN, campus LAN/WAN, and resilient multi-site connectivity, taking complex multi-vendor deployments from design through to production for enterprise and public sector clients.",
-        chatbotFocus: "Foreground Steven's core networking: network architecture and design, BGP and OSPF, WAN and SD-WAN, campus LAN/WAN, and resilient multi-site connectivity.",
+        chatbotFocus: "Foreground the Networking discipline: BGP and OSPF and EIGRP, BGP inbound traffic engineering, SD-WAN including greenfield fabrics and cloud-hosted controllers, campus LAN and WAN, and live brownfield cutovers. Name Parity, NetBud and Crucible.",
     },
 };
 
